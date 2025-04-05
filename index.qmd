@@ -1,5 +1,5 @@
 ---
-title: "DeepLearning"
+title: "Deep Learning"
 listing:
   contents: posts
   sort: "date desc"
@@ -11,4 +11,5 @@ page-layout: full
 title-block-banner: false
 ---
 
+Based on: [https://guebin.github.io/DL2025/](https://guebin.github.io/DL2025/)
 
