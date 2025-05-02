@@ -1,10 +1,73 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Deep Learning",
+    "objectID": "posts/exercise1.html",
+    "href": "posts/exercise1.html",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
     "section": "",
-    "text": "Based on: https://guebin.github.io/DL2025/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "문제풀이에 필요한 모듈은 스스로 import 할 것\nimport torch"
+  },
+  {
+    "objectID": "posts/exercise1.html#벡터와-행렬",
+    "href": "posts/exercise1.html#벡터와-행렬",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "$. 벡터와 행렬",
+    "text": "$. 벡터와 행렬\n(1) 아래와 같이 length 5 인 vector를 torch.tensor로 선언하는 코드를 작성하라.\n\\[{\\bf x} = [1,2,3,4,5]\\]\n(풀이)\n\nx = torch.tensor([1,2,3,4,5])\nx\n\ntensor([1, 2, 3, 4, 5])\n\n\n(2) 아래와 같은 2x2 matrix 를 torch.tensor로 선언하는 코드를 작성하라.\n\\[{\\bf A} = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}\\]\n(풀이?)\n\nA = torch.tensor([[1,2],[3,4]])\nA\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n(3) 아래와 같은 matrix 를 torch.tensor로 선언하는 코드를 작성하라.\n\\[{\\bf W} = \\begin{bmatrix} 2.5  \\\\  4 \\end{bmatrix}\\]\n(풀이?)\n\nW = torch.tensor([[2.5],[4]])\nW\n\ntensor([[2.5000],\n        [4.0000]])\n\n\n(4) 아래와 같은 matrix 를 torch.tensor로 선언하는 코드를 작성하라.\n\\[{\\bf x} = \\begin{bmatrix} 2.5  & 4 \\end{bmatrix}\\]\n(풀이?)\n\nx = torch.tensor([[2.5, 4]])\nx\n\ntensor([[2.5000, 4.0000]])"
+  },
+  {
+    "objectID": "posts/exercise1.html#concat-stack",
+    "href": "posts/exercise1.html#concat-stack",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "$. concat, stack",
+    "text": "$. concat, stack\na,b가 아래와 같이 주어졌다고 하자.\n\na = torch.tensor([1]*10)\nb = torch.tensor([2]*10)\n\n(관찰?)\n\na\n\ntensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])\n\n\n\na.shape\n\ntorch.Size([10])\n\n\n\nb\n\ntensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2])\n\n\n(실험?)\n\ntorch.tensor([[1]*10])\n\ntensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])\n\n\n\ntorch.tensor([[1]*10]).shape\n\ntorch.Size([1, 10])\n\n\n아래를 잘 읽고 물음에 답하라.\n(1) 주어진 a,b와 torch.concat를 이용하여 아래와 같은 배열을 만들어라.\ntensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])\n(풀이?)\n\ntorch.concat([a,b])\n\ntensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])\n\n\n(2) 주어진 a,b 와 torch.concat,.reshape를 이용하여 아래와 같은 배열을 만들어라.\ntensor([[1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2]])\n(풀이)\n\ntorch.concat([a.reshape(-1,1), b.reshape(-1,1)])\n\ntensor([[1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2],\n        [2]])\n\n\n(관찰?)\n\na.reshape(-1,1)\n\ntensor([[1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1],\n        [1]])\n\n\n\na\n\ntensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])\n\n\n(3) 주어진 a,b 와 torch.concat,.reshape를 이용하여 아래와 같은 배열을 만들어라.\ntensor([[1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2]])\n(풀이?)\n\ntorch.concat([a,b])\n\ntensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])\n\n\n\ntorch.concat([a,b]).reshape(-1,2)\n\ntensor([[1, 1],\n        [1, 1],\n        [1, 1],\n        [1, 1],\n        [1, 1],\n        [2, 2],\n        [2, 2],\n        [2, 2],\n        [2, 2],\n        [2, 2]])\n\n\n\ntorch.concat([a.reshape(-1,1),b.reshape(-1,1)], axis=1)\n\ntensor([[1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2]])\n\n\n(4) 주어진 a,b와 torch.stack 을 이용하여 아래와 같은 배열을 만들어라.\ntensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],\n        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]\n(풀이?)\n\ntorch.stack([a,b])\n\ntensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],\n        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]])\n\n\n(관찰?)\n\ntorch.stack([a,b], axis=1)\n\ntensor([[1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2]])\n\n\n(5) 주어진 a,b와 torch.stack을 이용하여 아래와 같은 배열을 만들어라.\ntensor([[1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2]])\n(풀이?)\n\ntorch.stack([a,b], axis=1)\n\ntensor([[1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2],\n        [1, 2]])"
+  },
+  {
+    "objectID": "posts/exercise1.html#행렬곱",
+    "href": "posts/exercise1.html#행렬곱",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "$. 행렬곱",
+    "text": "$. 행렬곱\n(1) 아래와 같은 텐서를 고려하자.\n\na = torch.tensor([1,2,3,4,5]).reshape(-1,1)\nb = torch.tensor([3,2,1,1,2]).reshape(-1,1)\n\n@ 연산자를 이용하여 \\(\\sum_{i=1}^{5}a_ib_i\\)를 계산하라.\n(풀이)\n\na.T @ b\n\ntensor([[24]])\n\n\n(2) 아래와 같은 텐서를 고려하자.\n\ntorch.manual_seed(0)\nx = torch.randn(100).reshape(-1,1)\n\n@연산자를 이용하여 \\(\\sum_{i=1}^{100}x_i^2\\)을 계산하라.\n(풀이?)\n\nx.T @ x\n\ntensor([[105.0856]])"
+  },
+  {
+    "objectID": "posts/exercise1.html#인덱싱",
+    "href": "posts/exercise1.html#인덱싱",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "$. 인덱싱",
+    "text": "$. 인덱싱\n아래와 같은 배열을 선언하라.\n\ntorch.manual_seed(1)\nx = torch.randn(12).reshape(3,4)\nx\n\ntensor([[ 0.6614,  0.2669,  0.0617,  0.6213],\n        [-0.4519, -0.1661, -1.5228,  0.3817],\n        [-1.0276, -0.5631, -0.8923, -0.0583]])\n\n\n(1) 1열을 추출하는 코드를 작성하라. 즉 결과가 아래와 같이 나오도록 하라.\ntensor([[ 0.6614],\n        [-0.4519],\n        [-1.0276]])\n(풀이?)\n\nx[:,0]\n\ntensor([ 0.6614, -0.4519, -1.0276])\n\n\n\nx[:,0].reshape(-1,1)\n\ntensor([[ 0.6614],\n        [-0.4519],\n        [-1.0276]])\n\n\n\nx[:,0].unsqueeze(1)\n\ntensor([[ 0.6614],\n        [-0.4519],\n        [-1.0276]])\n\n\n(2) 2-3열을 추출하는 코드를 작성하라. 즉 결과가 아래와 같이 나오도록 하라.\ntensor([[ 0.2669,  0.0617],\n        [-0.1661, -1.5228],\n        [-0.5631, -0.8923]])\n(풀이?)\n\nx[:,1:3]\n\ntensor([[ 0.2669,  0.0617],\n        [-0.1661, -1.5228],\n        [-0.5631, -0.8923]])\n\n\n\nx[:,[1,2]]\n\ntensor([[ 0.2669,  0.0617],\n        [-0.1661, -1.5228],\n        [-0.5631, -0.8923]])\n\n\n(3) 2-3행을 추출하는 코드를 작성하라. 즉 결과가 아래와 같이 나오도록 하라.\ntensor([[-0.4519, -0.1661, -1.5228,  0.3817],\n        [-1.0276, -0.5631, -0.8923, -0.0583]])\n\n(풀이?)\n\nx[1:,:]\n\ntensor([[-0.4519, -0.1661, -1.5228,  0.3817],\n        [-1.0276, -0.5631, -0.8923, -0.0583]])\n\n\n\nx[1:3,:]\n\ntensor([[-0.4519, -0.1661, -1.5228,  0.3817],\n        [-1.0276, -0.5631, -0.8923, -0.0583]])\n\n\n\nx[[1,2],:]\n\ntensor([[-0.4519, -0.1661, -1.5228,  0.3817],\n        [-1.0276, -0.5631, -0.8923, -0.0583]])\n\n\n(관찰?)\n\nx[1:2,:]\n\ntensor([[-0.4519, -0.1661, -1.5228,  0.3817]])"
+  },
+  {
+    "objectID": "posts/exercise1.html#q1",
+    "href": "posts/exercise1.html#q1",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "Q1",
+    "text": "Q1\n\nunsqueeze를 쓰지 않고 열 벡터를 뽑았을 때 .shape 차이점은?\n\n\n예제 비교\nx[:, 0]           # unsqueeze 없이\nx[:, 0].unsqueeze(1)  # unsqueeze 사용\n\n1. x[:, 0]\n\n결과 텐서 shape: torch.Size([3])\n설명: 1열의 값을 1차원 벡터로 반환한다. 예: [0.6614, -0.4519, -1.0276]\n\n\n\n2. x[:, 0].unsqueeze(1)\n\n결과 텐서 shape: torch.Size([3, 1])\n설명: 열 방향으로 2차원 텐서로 만든다. 예: [[0.6614], [-0.4519], [-1.0276]]\n\n\n\n\n차이점 요약\n\n\n\n\n\n\n\n\n항목\nx[:, 0]\nx[:, 0].unsqueeze(1)\n\n\n\n\nshape\n[3]\n[3, 1]\n\n\n차원 수\n1차원 (벡터)\n2차원 (행렬)\n\n\n브로드캐스팅\n자동으로 확장 어려움\n다른 행렬과 곧바로 연산 가능\n\n\n\n\n언제 unsqueeze(1)를 써야 하나?\n\n모델에 입력할 때 (예: [batch, features] 형태)\n행렬 연산에서 차원 일치를 맞춰야 할 때\n시각화 시 열 벡터 형태로 유지하고 싶을 때"
+  },
+  {
+    "objectID": "posts/exercise1.html#q2",
+    "href": "posts/exercise1.html#q2",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "Q2",
+    "text": "Q2\n\nx[:, 1:3] vs. x[:, [1, 2]] 차이점\n\n\n1. x[:, 1:3] — 슬라이싱\n\n연속된 구간을 slice 객체로 추출\n결과는 연속된 메모리 블록이므로 뷰(view)가 됨 → 원본 변경 시 반영 가능\n메모리 효율적\n인덱스는 start:end로, end는 포함하지 않음\n\nx[:, 1:3]  # 열 1번과 2번\n\n\n2. x[:, [1, 2]] — Fancy Indexing\n\n리스트로 지정한 인덱스들을 직접 선택\n복사본(copy)이 생성되므로 원본 변경과 연결되지 않음\n연속된 열뿐 아니라 임의의 순서, 중복, 불연속 인덱스도 가능\n\nx[:, [1, 2]]       # 열 1번과 2번 (복사본)\nx[:, [2, 1, 2]]    # 열 순서, 중복도 가능\n\n\n차이 예시\n\n\n\n항목\nx[:, 1:3]\nx[:, [1, 2]]\n\n\n\n\n연속된 열만 선택 가능\n✅\n✅\n\n\n불연속 열 선택\n❌\n✅\n\n\n중복 열 선택\n❌\n✅ ([2, 1, 2] 등)\n\n\n반환값이 뷰(view)?\n✅\n❌ (copy)\n\n\n메모리 효율\n높음\n낮음 (복사 발생)"
+  },
+  {
+    "objectID": "posts/exercise1.html#q3",
+    "href": "posts/exercise1.html#q3",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "Q3",
+    "text": "Q3\n\nx[1:3, :] vs. x[-2:, :] 관계\n\n\n동일한 결과를 만듦\n둘 다 2~3행(인덱스 1, 2)을 선택하는 코드다.\nx[1:3, :]    # 행 인덱스 1~2\nx[-2:, :]    # 끝에서 두 번째부터 끝까지 = 인덱스 1~2\n\n\n\n표현\n의미\n행 추출 결과\n\n\n\n\nx[1:3, :]\n1번째부터 2번째까지 슬라이싱\n[1, 2]행\n\n\nx[-2:, :]\n뒤에서 2개 슬라이싱\n[1, 2]행\n\n\n\n\n\n차이점\n\nx[1:3, :]은 정방향 인덱스로 위치를 기준\nx[-2:, :]은 역방향 인덱스로 끝 기준 → 가변 길이 텐서에서 유용"
+  },
+  {
+    "objectID": "posts/exercise1.html#q2-q3-정리-포인트",
+    "href": "posts/exercise1.html#q2-q3-정리-포인트",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "Q2 Q3 정리 포인트",
+    "text": "Q2 Q3 정리 포인트\n\n\n\n\n\n\n\n비교 대상\n차이점 요약\n\n\n\n\n[:, 1:3] vs [:, [1, 2]]\n전자는 연속 구간 슬라이싱, 후자는 지정된 열 복사\n\n\n[1:3, :] vs [-2:, :]\n결국 같은 행 추출, 접근 방식(앞 vs. 뒤 기준)만 다름"
+  },
+  {
+    "objectID": "posts/exercise1.html#q4",
+    "href": "posts/exercise1.html#q4",
+    "title": "A1: Exercise – ver. 0420-2 (1)",
+    "section": "Q4",
+    "text": "Q4\n\nunsqueeze에 대해 설명\n\n\nunsqueeze는 텐서 차원을 인위적으로 추가하는 함수로, PyTorch에서 데이터를 다룰 때 매우 자주 쓰인다.\n차원이 맞지 않아 오류가 발생할 때, unsqueeze를 이용하면 이를 간단하게 해결할 수 있다.\n\n\ntorch.unsqueeze(tensor, dim) 또는 tensor.unsqueeze(dim)\n\n역할:\n\n지정한 위치 dim에 크기 1짜리 차원을 추가한다.\n결과 텐서의 shape은 원래보다 차원이 1 증가한다.\n\n\n\n예시 1: 벡터 → 열 벡터\nx = torch.tensor([1, 2, 3])       # shape: [3]\nx_unsq = x.unsqueeze(1)           # shape: [3, 1]\n\n# 결과:\n# tensor([[1],\n#         [2],\n#         [3]])\n\n\n예시 2: 벡터 → 배치 텐서\nx = torch.tensor([1, 2, 3])       # shape: [3]\nx_unsq = x.unsqueeze(0)           # shape: [1, 3]\n\n# 결과:\n# tensor([[1, 2, 3]])\n\n\nShape 변화 정리:\n\n\n\n원래 shape\nunsqueeze(0)\nunsqueeze(1)\nunsqueeze(-1)\n\n\n\n\n[3]\n[1, 3]\n[3, 1]\n[3, 1]\n\n\n[3, 4]\n[1, 3, 4]\n[3, 1, 4]\n[3, 4, 1]\n\n\n\n\n\n\n주로 사용하는 상황\n\n1. 모델 입력 차원 맞추기\nx = torch.tensor([1.0, 2.0, 3.0])  # shape [3]\nx = x.unsqueeze(0)  # shape [1, 3] → batch 차원 추가\n\n\n2. 브로드캐스팅 용도\na = torch.tensor([1, 2, 3])         # shape: [3]\nb = a.unsqueeze(1)                  # shape: [3, 1]\n→ 이후 연산 시 자동으로 [3, 1]과 [3, 4] 같은 텐서가 맞춰짐\n\n\n\n주의\n\nunsqueeze는 실제 데이터를 바꾸지 않고 shape만 변경한다.\n원래의 텐서와 동일한 메모리 참조를 가질 수도 있음 (즉, view일 수 있음)\n\n\n\n관련 함수\n\n\n\n함수\n기능\n\n\n\n\nunsqueeze\n차원 추가\n\n\nsqueeze\n크기 1인 차원 제거\n\n\nreshape\n전체 차원을 원하는 형태로 재구성\n\n\nview\nreshape과 거의 동일, 메모리 연속 요구\n\n\n\n\ntorch.unsqueeze?\n\n\nDocstring:\nunsqueeze(input, dim) -&gt; Tensor\nReturns a new tensor with a dimension of size one inserted at the\nspecified position.\nThe returned tensor shares the same underlying data with this tensor.\nA :attr:`dim` value within the range ``[-input.dim() - 1, input.dim() + 1)``\ncan be used. Negative :attr:`dim` will correspond to :meth:`unsqueeze`\napplied at :attr:`dim` = ``dim + input.dim() + 1``.\nArgs:\n    input (Tensor): the input tensor.\n    dim (int): the index at which to insert the singleton dimension\nExample::\n    &gt;&gt;&gt; x = torch.tensor([1, 2, 3, 4])\n    &gt;&gt;&gt; torch.unsqueeze(x, 0)\n    tensor([[ 1,  2,  3,  4]])\n    &gt;&gt;&gt; torch.unsqueeze(x, 1)\n    tensor([[ 1],\n            [ 2],\n            [ 3],\n            [ 4]])\nType:      builtin_function_or_method"
   },
   {
     "objectID": "about.html",
@@ -12,5 +75,12 @@
     "title": "About",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Deep Learning",
+    "section": "",
+    "text": "Based on: https://guebin.github.io/DL2025/\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nJan 1, 2025\n\n\nA1: Exercise – ver. 0420-2 (1)\n\n\nsw1kwon \n\n\n\n\n\nNo matching items"
   }
 ]
