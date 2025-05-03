@@ -9,7 +9,7 @@
 <meta name="author" content="sw1kwon">
 <meta name="dcterms.date" content="2025-01-01">
 
-<title>A1: Exercise – ver. 0420-2 (1) – DeepLearning</title>
+<title>A1: Exercise – ver. 0503-1 – DeepLearning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -178,7 +178,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">A1: Exercise – ver. 0420-2 (1)</h1>
+      <h1 class="title">A1: Exercise – ver. 0503-1</h1>
                       </div>
   </div>
     
@@ -217,6 +217,7 @@ window.Quarto = {
   <li><a href="#concat-stack" id="toc-concat-stack" class="nav-link" data-scroll-target="#concat-stack"><code>$</code>. concat, stack</a></li>
   <li><a href="#행렬곱" id="toc-행렬곱" class="nav-link" data-scroll-target="#행렬곱"><code>$</code>. 행렬곱</a></li>
   <li><a href="#인덱싱" id="toc-인덱싱" class="nav-link" data-scroll-target="#인덱싱"><code>$</code>. 인덱싱</a></li>
+  <li><a href="#torch.einsum" id="toc-torch.einsum" class="nav-link" data-scroll-target="#torch.einsum"><code>$</code>. <code>torch.einsum</code></a></li>
   </ul></li>
   <li><a href="#chatgpt-4o" id="toc-chatgpt-4o" class="nav-link" data-scroll-target="#chatgpt-4o">ChatGPT 4o 🔬❓</a>
   <ul class="collapse">
@@ -244,6 +245,24 @@ window.Quarto = {
   <li><a href="#주의" id="toc-주의" class="nav-link" data-scroll-target="#주의">주의</a></li>
   <li><a href="#관련-함수" id="toc-관련-함수" class="nav-link" data-scroll-target="#관련-함수">관련 함수</a></li>
   </ul></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a>
+  <ul class="collapse">
+  <li><a href="#torch.einsum이란" id="toc-torch.einsum이란" class="nav-link" data-scroll-target="#torch.einsum이란"><code>torch.einsum</code>이란?</a></li>
+  <li><a href="#기본-문법" id="toc-기본-문법" class="nav-link" data-scroll-target="#기본-문법">기본 문법</a></li>
+  <li><a href="#기본-예제-모음" id="toc-기본-예제-모음" class="nav-link" data-scroll-target="#기본-예제-모음">기본 예제 모음</a></li>
+  <li><a href="#장점-요약" id="toc-장점-요약" class="nav-link" data-scroll-target="#장점-요약">장점 요약</a></li>
+  <li><a href="#시각적으로-이해" id="toc-시각적으로-이해" class="nav-link" data-scroll-target="#시각적으로-이해">시각적으로 이해</a></li>
+  <li><a href="#유의사항" id="toc-유의사항" class="nav-link" data-scroll-target="#유의사항">유의사항</a></li>
+  </ul></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a>
+  <ul class="collapse">
+  <li><a href="#차원-축소-reduction" id="toc-차원-축소-reduction" class="nav-link" data-scroll-target="#차원-축소-reduction"><code>차원 축소 (Reduction)</code></a></li>
+  <li><a href="#브로드캐스팅-broadcasting" id="toc-브로드캐스팅-broadcasting" class="nav-link" data-scroll-target="#브로드캐스팅-broadcasting"><code>브로드캐스팅 (Broadcasting)</code></a></li>
+  <li><a href="#예제-하나로-축소-vs-브로드캐스팅-비교" id="toc-예제-하나로-축소-vs-브로드캐스팅-비교" class="nav-link" data-scroll-target="#예제-하나로-축소-vs-브로드캐스팅-비교">예제 하나로 축소 vs 브로드캐스팅 비교</a></li>
+  <li><a href="#핵심-요약표" id="toc-핵심-요약표" class="nav-link" data-scroll-target="#핵심-요약표">핵심 요약표</a></li>
+  <li><a href="#정리" id="toc-정리" class="nav-link" data-scroll-target="#정리">정리</a></li>
+  </ul></li>
+  <li><a href="#추가-질문들" id="toc-추가-질문들" class="nav-link" data-scroll-target="#추가-질문들">추가 질문들</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -322,28 +341,28 @@ window.Quarto = {
 <pre><code>tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])</code></pre>
 </div>
 </div>
-<div id="56fe737b-9a1e-4f21-be6f-32f6cb9b9a9d" class="cell" data-execution_count="10">
+<div id="56fe737b-9a1e-4f21-be6f-32f6cb9b9a9d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>torch.Size([10])</code></pre>
 </div>
 </div>
-<div id="296265d5-1d0a-4255-b088-80d1c126ea50" class="cell" data-execution_count="8">
+<div id="296265d5-1d0a-4255-b088-80d1c126ea50" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</code></pre>
 </div>
 </div>
 <p><code>(실험?)</code></p>
-<div id="d2703607-864b-44dd-914c-0ee7e5e09fda" class="cell" data-execution_count="11">
+<div id="d2703607-864b-44dd-914c-0ee7e5e09fda" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>torch.tensor([[<span class="dv">1</span>]<span class="op">*</span><span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])</code></pre>
 </div>
 </div>
-<div id="20e7aceb-83b4-413d-b2cb-a3a7fd540ad5" class="cell" data-execution_count="12">
+<div id="20e7aceb-83b4-413d-b2cb-a3a7fd540ad5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>torch.tensor([[<span class="dv">1</span>]<span class="op">*</span><span class="dv">10</span>]).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>torch.Size([1, 10])</code></pre>
 </div>
 </div>
@@ -351,9 +370,9 @@ window.Quarto = {
 <p><code>(1)</code> 주어진 a,b와 <code>torch.concat</code>를 이용하여 아래와 같은 배열을 만들어라.</p>
 <pre><code>tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="855047cf-30e1-424c-89be-5564f2551e75" class="cell" data-execution_count="9">
+<div id="855047cf-30e1-424c-89be-5564f2551e75" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>torch.concat([a,b])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</code></pre>
 </div>
 </div>
@@ -438,15 +457,15 @@ window.Quarto = {
         [1, 2],
         [1, 2]])</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="9a5385c8-0ee0-40f0-970e-516838697177" class="cell" data-execution_count="17">
+<div id="9a5385c8-0ee0-40f0-970e-516838697177" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>torch.concat([a,b])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</code></pre>
 </div>
 </div>
-<div id="81d39e48-8205-4b92-92c4-be134bbe7919" class="cell" data-execution_count="18">
+<div id="81d39e48-8205-4b92-92c4-be134bbe7919" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>torch.concat([a,b]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>tensor([[1, 1],
         [1, 1],
         [1, 1],
@@ -459,9 +478,9 @@ window.Quarto = {
         [2, 2]])</code></pre>
 </div>
 </div>
-<div id="726cf49d-35ec-4d6f-b58f-b40e6fb727d5" class="cell" data-execution_count="23">
+<div id="726cf49d-35ec-4d6f-b58f-b40e6fb727d5" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>torch.concat([a.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),b.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>tensor([[1, 2],
         [1, 2],
         [1, 2],
@@ -478,17 +497,17 @@ window.Quarto = {
 <pre><code>tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="c6c6ec46-85c8-4457-954c-13ceb9c8ba8a" class="cell" data-execution_count="24">
+<div id="c6c6ec46-85c8-4457-954c-13ceb9c8ba8a" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>torch.stack([a,b])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]])</code></pre>
 </div>
 </div>
 <p><code>(관찰?)</code></p>
-<div id="5c9ded1b-3fa7-4758-855d-17ed26d33c58" class="cell" data-execution_count="25">
+<div id="5c9ded1b-3fa7-4758-855d-17ed26d33c58" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>torch.stack([a,b], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>tensor([[1, 2],
         [1, 2],
         [1, 2],
@@ -513,9 +532,9 @@ window.Quarto = {
         [1, 2],
         [1, 2]])</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="7cf3572c-ef82-4db2-9c38-b8994d9ca036" class="cell" data-execution_count="26">
+<div id="7cf3572c-ef82-4db2-9c38-b8994d9ca036" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>torch.stack([a,b], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>tensor([[1, 2],
         [1, 2],
         [1, 2],
@@ -532,28 +551,28 @@ window.Quarto = {
 <section id="행렬곱" class="level2">
 <h2 class="anchored" data-anchor-id="행렬곱"><code>$</code>. 행렬곱</h2>
 <p><code>(1)</code> 아래와 같은 텐서를 고려하자.</p>
-<div id="c24782f8-8150-4684-a25c-b362108c4fc8" class="cell" data-execution_count="27">
+<div id="c24782f8-8150-4684-a25c-b362108c4fc8" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>@</code> 연산자를 이용하여 <span class="math inline">\(\sum_{i=1}^{5}a_ib_i\)</span>를 계산하라.</p>
 <p><code>(풀이)</code></p>
-<div id="6c5458ca-3f4a-4ff7-b33d-2a04d834efa3" class="cell" data-execution_count="28">
+<div id="6c5458ca-3f4a-4ff7-b33d-2a04d834efa3" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>a.T <span class="op">@</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>tensor([[24]])</code></pre>
 </div>
 </div>
 <p><code>(2)</code> 아래와 같은 텐서를 고려하자.</p>
-<div id="b1acadbf-49e3-4ae9-ab76-0d61136154af" class="cell" data-execution_count="29">
+<div id="b1acadbf-49e3-4ae9-ab76-0d61136154af" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">100</span>).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>@</code>연산자를 이용하여 <span class="math inline">\(\sum_{i=1}^{100}x_i^2\)</span>을 계산하라.</p>
 <p><code>(풀이?)</code></p>
-<div id="2cbce6a9-5096-404e-87e9-1b5c0365037f" class="cell" data-execution_count="31">
+<div id="2cbce6a9-5096-404e-87e9-1b5c0365037f" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>x.T <span class="op">@</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>tensor([[105.0856]])</code></pre>
 </div>
 </div>
@@ -561,11 +580,11 @@ window.Quarto = {
 <section id="인덱싱" class="level2">
 <h2 class="anchored" data-anchor-id="인덱싱"><code>$</code>. 인덱싱</h2>
 <p>아래와 같은 배열을 선언하라.</p>
-<div id="8f35bb57-46ba-4c94-97a6-ae5e4424598a" class="cell" data-outputid="52c92613-c738-4896-c465-74652a0b817e" data-execution_count="32">
+<div id="8f35bb57-46ba-4c94-97a6-ae5e4424598a" class="cell" data-outputid="52c92613-c738-4896-c465-74652a0b817e" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">12</span>).reshape(<span class="dv">3</span>,<span class="dv">4</span>)</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>tensor([[ 0.6614,  0.2669,  0.0617,  0.6213],
         [-0.4519, -0.1661, -1.5228,  0.3817],
         [-1.0276, -0.5631, -0.8923, -0.0583]])</code></pre>
@@ -576,23 +595,23 @@ window.Quarto = {
         [-0.4519],
         [-1.0276]])</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="eca2992d-ebd2-4f65-be3c-e1bff17f1316" class="cell" data-execution_count="35">
+<div id="eca2992d-ebd2-4f65-be3c-e1bff17f1316" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x[:,<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>tensor([ 0.6614, -0.4519, -1.0276])</code></pre>
 </div>
 </div>
-<div id="40fc8ef2-a332-438c-8d69-10c956380565" class="cell" data-execution_count="36">
+<div id="40fc8ef2-a332-438c-8d69-10c956380565" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>x[:,<span class="dv">0</span>].reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>tensor([[ 0.6614],
         [-0.4519],
         [-1.0276]])</code></pre>
 </div>
 </div>
-<div id="89c15a1c-2a91-4867-894b-84a9decd5924" class="cell" data-execution_count="40">
+<div id="89c15a1c-2a91-4867-894b-84a9decd5924" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>x[:,<span class="dv">0</span>].unsqueeze(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>tensor([[ 0.6614],
         [-0.4519],
         [-1.0276]])</code></pre>
@@ -603,17 +622,17 @@ window.Quarto = {
         [-0.1661, -1.5228],
         [-0.5631, -0.8923]])</code></pre>
 <p><code>(풀이?)</code></p>
-<div id="d8d4d1e4-d547-4550-9852-66712d62555f" class="cell" data-execution_count="42">
+<div id="d8d4d1e4-d547-4550-9852-66712d62555f" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>x[:,<span class="dv">1</span>:<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>tensor([[ 0.2669,  0.0617],
         [-0.1661, -1.5228],
         [-0.5631, -0.8923]])</code></pre>
 </div>
 </div>
-<div id="845ae163-46de-4675-9a2f-5c2ddbd63a8d" class="cell" data-execution_count="43">
+<div id="845ae163-46de-4675-9a2f-5c2ddbd63a8d" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>x[:,[<span class="dv">1</span>,<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>tensor([[ 0.2669,  0.0617],
         [-0.1661, -1.5228],
         [-0.5631, -0.8923]])</code></pre>
@@ -624,32 +643,62 @@ window.Quarto = {
         [-1.0276, -0.5631, -0.8923, -0.0583]])
 </code></pre>
 <p><code>(풀이?)</code></p>
-<div id="a32d7382-3516-4159-afd7-11ab5fa3fd16" class="cell" data-execution_count="44">
+<div id="a32d7382-3516-4159-afd7-11ab5fa3fd16" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>:,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>tensor([[-0.4519, -0.1661, -1.5228,  0.3817],
         [-1.0276, -0.5631, -0.8923, -0.0583]])</code></pre>
 </div>
 </div>
-<div id="92309113-9c77-4262-b429-69dcd6a469f1" class="cell" data-execution_count="45">
+<div id="92309113-9c77-4262-b429-69dcd6a469f1" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>:<span class="dv">3</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>tensor([[-0.4519, -0.1661, -1.5228,  0.3817],
         [-1.0276, -0.5631, -0.8923, -0.0583]])</code></pre>
 </div>
 </div>
-<div id="cb70e161-26bd-4a34-aa93-7b3c3da498d3" class="cell" data-execution_count="47">
+<div id="cb70e161-26bd-4a34-aa93-7b3c3da498d3" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>x[[<span class="dv">1</span>,<span class="dv">2</span>],:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>tensor([[-0.4519, -0.1661, -1.5228,  0.3817],
         [-1.0276, -0.5631, -0.8923, -0.0583]])</code></pre>
 </div>
 </div>
 <p><code>(관찰?)</code></p>
-<div id="cd46a7e8-f2bd-4b79-b0a1-5a2eba198437" class="cell" data-execution_count="46">
+<div id="cd46a7e8-f2bd-4b79-b0a1-5a2eba198437" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>:<span class="dv">2</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>tensor([[-0.4519, -0.1661, -1.5228,  0.3817]])</code></pre>
+</div>
+</div>
+</section>
+<section id="torch.einsum" class="level2">
+<h2 class="anchored" data-anchor-id="torch.einsum"><code>$</code>. <code>torch.einsum</code></h2>
+<div id="35a120b2-3575-4e9f-b323-832654d64cb5" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.randn(<span class="dv">5</span>,<span class="dv">2</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>tensor([[-0.1955, -0.9656],
+        [ 0.4224,  0.2673],
+        [-0.4212, -0.5107],
+        [-1.5727, -0.1232],
+        [ 3.5870, -1.8313]])</code></pre>
+</div>
+</div>
+<p><code>(1)</code> 아래에 대응하는 코드를 <code>torch.einsum</code>으로 구현하라.</p>
+<div id="87f2034b-269e-4a69-810f-8b414eb65587" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>X.t()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>tensor([[-0.1955,  0.4224, -0.4212, -1.5727,  3.5870],
+        [-0.9656,  0.2673, -0.5107, -0.1232, -1.8313]])</code></pre>
+</div>
+</div>
+<p><code>(풀이?)</code></p>
+<div id="e4cd25af-1c60-4ded-96ba-8edb98264184" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;ji'</span>, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>tensor([[-0.1955,  0.4224, -0.4212, -1.5727,  3.5870],
+        [-0.9656,  0.2673, -0.5107, -0.1232, -1.8313]])</code></pre>
 </div>
 </div>
 </section>
@@ -663,8 +712,8 @@ window.Quarto = {
 </blockquote>
 <section id="예제-비교" class="level3">
 <h3 class="anchored" data-anchor-id="예제-비교">예제 비교</h3>
-<div class="sourceCode" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">0</span>]           <span class="co"># unsqueeze 없이</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">0</span>].unsqueeze(<span class="dv">1</span>)  <span class="co"># unsqueeze 사용</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">0</span>]           <span class="co"># unsqueeze 없이</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">0</span>].unsqueeze(<span class="dv">1</span>)  <span class="co"># unsqueeze 사용</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="x-0" class="level4">
 <h4 class="anchored" data-anchor-id="x-0">1. <code>x[:, 0]</code></h4>
 <ul>
@@ -736,7 +785,7 @@ window.Quarto = {
 <li>메모리 효율적</li>
 <li>인덱스는 <code>start:end</code>로, <code>end</code>는 <strong>포함하지 않음</strong></li>
 </ul>
-<div class="sourceCode" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">1</span>:<span class="dv">3</span>]  <span class="co"># 열 1번과 2번</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>x[:, <span class="dv">1</span>:<span class="dv">3</span>]  <span class="co"># 열 1번과 2번</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="x-1-2-fancy-indexing" class="level3">
 <h3 class="anchored" data-anchor-id="x-1-2-fancy-indexing">2. <code>x[:, [1, 2]]</code> — <strong>Fancy Indexing</strong></h3>
@@ -745,8 +794,8 @@ window.Quarto = {
 <li><code>복사본(copy)</code>이 생성되므로 원본 변경과 연결되지 않음</li>
 <li>연속된 열뿐 아니라 <strong>임의의 순서</strong>, <strong>중복</strong>, <strong>불연속 인덱스</strong>도 가능</li>
 </ul>
-<div class="sourceCode" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>x[:, [<span class="dv">1</span>, <span class="dv">2</span>]]       <span class="co"># 열 1번과 2번 (복사본)</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>x[:, [<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>]]    <span class="co"># 열 순서, 중복도 가능</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>x[:, [<span class="dv">1</span>, <span class="dv">2</span>]]       <span class="co"># 열 1번과 2번 (복사본)</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>x[:, [<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>]]    <span class="co"># 열 순서, 중복도 가능</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="차이-예시" class="level3">
 <h3 class="anchored" data-anchor-id="차이-예시">차이 예시</h3>
@@ -796,8 +845,8 @@ window.Quarto = {
 <section id="동일한-결과를-만듦" class="level3">
 <h3 class="anchored" data-anchor-id="동일한-결과를-만듦">동일한 결과를 만듦</h3>
 <p>둘 다 <code>2~3행(인덱스 1, 2)</code>을 선택하는 코드다.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>:<span class="dv">3</span>, :]    <span class="co"># 행 인덱스 1~2</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>x[<span class="op">-</span><span class="dv">2</span>:, :]    <span class="co"># 끝에서 두 번째부터 끝까지 = 인덱스 1~2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>:<span class="dv">3</span>, :]    <span class="co"># 행 인덱스 1~2</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>x[<span class="op">-</span><span class="dv">2</span>:, :]    <span class="co"># 끝에서 두 번째부터 끝까지 = 인덱스 1~2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -873,21 +922,21 @@ window.Quarto = {
 </section>
 <section id="예시-1-벡터-열-벡터" class="level4">
 <h4 class="anchored" data-anchor-id="예시-1-벡터-열-벡터">예시 1: 벡터 → 열 벡터</h4>
-<div class="sourceCode" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])       <span class="co"># shape: [3]</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>x_unsq <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>)           <span class="co"># shape: [3, 1]</span></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과:</span></span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tensor([[1],</span></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         [2],</span></span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         [3]])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])       <span class="co"># shape: [3]</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>x_unsq <span class="op">=</span> x.unsqueeze(<span class="dv">1</span>)           <span class="co"># shape: [3, 1]</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과:</span></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tensor([[1],</span></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         [2],</span></span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         [3]])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="예시-2-벡터-배치-텐서" class="level4">
 <h4 class="anchored" data-anchor-id="예시-2-벡터-배치-텐서">예시 2: 벡터 → 배치 텐서</h4>
-<div class="sourceCode" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])       <span class="co"># shape: [3]</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>x_unsq <span class="op">=</span> x.unsqueeze(<span class="dv">0</span>)           <span class="co"># shape: [1, 3]</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과:</span></span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tensor([[1, 2, 3]])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])       <span class="co"># shape: [3]</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>x_unsq <span class="op">=</span> x.unsqueeze(<span class="dv">0</span>)           <span class="co"># shape: [1, 3]</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과:</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tensor([[1, 2, 3]])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="shape-변화-정리" class="level4">
 <h4 class="anchored" data-anchor-id="shape-변화-정리">Shape 변화 정리:</h4>
@@ -921,13 +970,13 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="주로-사용하는-상황">주로 사용하는 상황</h3>
 <section id="모델-입력-차원-맞추기" class="level4">
 <h4 class="anchored" data-anchor-id="모델-입력-차원-맞추기">1. <strong>모델 입력 차원 맞추기</strong></h4>
-<div class="sourceCode" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])  <span class="co"># shape [3]</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x.unsqueeze(<span class="dv">0</span>)  <span class="co"># shape [1, 3] → batch 차원 추가</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])  <span class="co"># shape [3]</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x.unsqueeze(<span class="dv">0</span>)  <span class="co"># shape [1, 3] → batch 차원 추가</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="브로드캐스팅-용도" class="level4">
 <h4 class="anchored" data-anchor-id="브로드캐스팅-용도">2. <strong>브로드캐스팅 용도</strong></h4>
-<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])         <span class="co"># shape: [3]</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a.unsqueeze(<span class="dv">1</span>)                  <span class="co"># shape: [3, 1]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])         <span class="co"># shape: [3]</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a.unsqueeze(<span class="dv">1</span>)                  <span class="co"># shape: [3, 1]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>→ 이후 연산 시 자동으로 <code>[3, 1]</code>과 <code>[3, 4]</code> 같은 텐서가 맞춰짐</p>
 </section>
 </section>
@@ -966,8 +1015,8 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div id="88ab669b-a065-409a-89f3-a851c59ef92c" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>torch.unsqueeze?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="88ab669b-a065-409a-89f3-a851c59ef92c" class="cell" data-scrolled="true" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>torch.unsqueeze?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">Docstring:</span>
@@ -994,9 +1043,208 @@ Example::
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="q5" class="level2">
+<h2 class="anchored" data-anchor-id="q5">Q5</h2>
+<blockquote class="blockquote">
+<p><code>torch.einsum</code>에 대한 설명</p>
+</blockquote>
+<ul>
+<li><code>torch.einsum</code>은 <code>Einstein summation (아인슈타인 표기법)</code>을 사용해 텐서 연산을 간결하고 직관적으로 표현할 수 있는 강력한 도구</li>
+</ul>
+<section id="torch.einsum이란" class="level3">
+<h3 class="anchored" data-anchor-id="torch.einsum이란"><code>torch.einsum</code>이란?</h3>
+<ul>
+<li><code>einsum</code>은 “어떤 차원을 기준으로 계산하고, 어떤 차원을 남길지”를 <strong>직접 지정</strong>하는 방식</li>
+<li>불필요한 <code>reshape</code>, <code>transpose</code>, <code>sum</code> 등을 따로 하지 않아도 <strong>한 줄로 연산 가능</strong></li>
+</ul>
+</section>
+<section id="기본-문법" class="level3">
+<h3 class="anchored" data-anchor-id="기본-문법">기본 문법</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'input_indices-&gt;output_indices'</span>, operands)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>예:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;ji'</span>, X)       <span class="co"># 전치 transpose</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij,jk-&gt;ik'</span>, A, B) <span class="co"># 행렬 곱 A @ B</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="기본-예제-모음" class="level3">
+<h3 class="anchored" data-anchor-id="기본-예제-모음">기본 예제 모음</h3>
+<section id="전치-x.t" class="level4">
+<h4 class="anchored" data-anchor-id="전치-x.t">전치: <code>X.t()</code></h4>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;ji'</span>, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="행렬-곱-a-b" class="level4">
+<h4 class="anchored" data-anchor-id="행렬-곱-a-b">행렬 곱: <code>A @ B</code></h4>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ik,kj-&gt;ij'</span>, A, B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>설명:</p>
+<ul>
+<li><code>i</code>: A의 행 인덱스</li>
+<li><code>k</code>: A의 열 = B의 행 (sum 대상)</li>
+<li><code>j</code>: B의 열</li>
+</ul>
+</section>
+<section id="벡터-내적-torch.dota-b" class="level4">
+<h4 class="anchored" data-anchor-id="벡터-내적-torch.dota-b">벡터 내적: <code>torch.dot(a, b)</code></h4>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'i,i-&gt;'</span>, a, b)  <span class="co"># 결과: 스칼라</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="배치-행렬-곱-torch.bmma-b" class="level4">
+<h4 class="anchored" data-anchor-id="배치-행렬-곱-torch.bmma-b">배치 행렬 곱: <code>torch.bmm(A, B)</code></h4>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'bij,bjk-&gt;bik'</span>, A, B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="열별-합계-torch.sumx-dim0" class="level4">
+<h4 class="anchored" data-anchor-id="열별-합계-torch.sumx-dim0">열별 합계: <code>torch.sum(X, dim=0)</code></h4>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;j'</span>, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="장점-요약" class="level3">
+<h3 class="anchored" data-anchor-id="장점-요약">장점 요약</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 81%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>장점</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>직관적인 인덱스 지정</td>
+<td>원하는 차원을 남기거나 더할 수 있음</td>
+</tr>
+<tr class="even">
+<td>복잡한 연산 단순화</td>
+<td><code>matmul</code>, <code>sum</code>, <code>permute</code>, <code>reshape</code> 등을 한 줄로 처리</td>
+</tr>
+<tr class="odd">
+<td>메모리 효율적</td>
+<td>불필요한 중간 텐서 생성 없음</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="시각적으로-이해" class="level3">
+<h3 class="anchored" data-anchor-id="시각적으로-이해">시각적으로 이해</h3>
+<pre><code># 예: 행렬 곱 A @ B
+
+A.shape = (2, 3)     =&gt; 'ik'
+B.shape = (3, 4)     =&gt; 'kj'
+결과: torch.einsum('ik,kj-&gt;ij', A, B)  → shape (2, 4)</code></pre>
+</section>
+<section id="유의사항" class="level3">
+<h3 class="anchored" data-anchor-id="유의사항">유의사항</h3>
+<ul>
+<li><code>'ij-&gt;ji'</code>처럼 <code>화살표(-&gt;)</code>는 “이 인덱스들을 어떻게 재구성할 것인지”를 뜻함</li>
+<li>같은 문자가 <strong>두 번 이상 등장</strong>하면 그 차원을 <strong>summation</strong> (축소) 대상으로 봄</li>
+<li>없는 차원에 대한 문자는 오류를 발생시킴</li>
+</ul>
+<div id="31d6ef3e-6947-4ab7-a8ec-c1a214668984" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># torch.einsum?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="q6" class="level2">
+<h2 class="anchored" data-anchor-id="q6">Q6</h2>
+<blockquote class="blockquote">
+<p><code>einsum</code>을 사용할 때, 브로드캐스팅과 차원 축소는 어떻게 동작?</p>
+</blockquote>
+<ul>
+<li>이건 <code>einsum</code>의 핵심 작동 원리이자 큰 강점 중 하나</li>
+</ul>
+<section id="차원-축소-reduction" class="level3">
+<h3 class="anchored" data-anchor-id="차원-축소-reduction"><code>차원 축소 (Reduction)</code></h3>
+<p><code>einsum</code>에서 <strong>같은 문자가 두 번 등장하면</strong>, 그 차원은 <code>sum (합산)</code> 처리됨</p>
+<section id="예시-벡터-내적" class="level4">
+<h4 class="anchored" data-anchor-id="예시-벡터-내적">예시: 벡터 내적</h4>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">4.0</span>, <span class="fl">5.0</span>, <span class="fl">6.0</span>])</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'i,i-&gt;'</span>, a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>'i,i-&gt;'</code>는 i끼리 곱하고 → <strong>모든 i에 대해 합</strong>.</li>
+<li>결과: <code>1×4 + 2×5 + 3×6 = 32</code></li>
+</ul>
+<p>=&gt; 결과는 <strong>스칼라</strong> (0차원 텐서)</p>
+</section>
+</section>
+<section id="브로드캐스팅-broadcasting" class="level3">
+<h3 class="anchored" data-anchor-id="브로드캐스팅-broadcasting"><code>브로드캐스팅 (Broadcasting)</code></h3>
+<ul>
+<li><code>einsum</code>은 <strong>자동 브로드캐스팅을 지원하지 않음</strong></li>
+<li>하지만 인덱스 차원을 명시하면, <strong>명시적 브로드캐스팅처럼 작동</strong>시킬 수 있음</li>
+</ul>
+<section id="예시-외적-outer-product" class="level4">
+<h4 class="anchored" data-anchor-id="예시-외적-outer-product">예시: 외적 (outer product)</h4>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>])   <span class="co"># shape [3]</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([<span class="fl">4.0</span>, <span class="fl">5.0</span>])        <span class="co"># shape [2]</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'i,j-&gt;ij'</span>, a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>결과: shape <code>[3, 2]</code></li>
+<li><code>i</code>는 a의 차원, <code>j</code>는 b의 차원 → 각각 브로드캐스트해서 곱함</li>
+</ul>
+<pre><code>[[1*4, 1*5],
+ [2*4, 2*5],
+ [3*4, 3*5]]</code></pre>
+</section>
+</section>
+<section id="예제-하나로-축소-vs-브로드캐스팅-비교" class="level3">
+<h3 class="anchored" data-anchor-id="예제-하나로-축소-vs-브로드캐스팅-비교">예제 하나로 축소 vs 브로드캐스팅 비교</h3>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.randn(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 열별 합계 (축소)</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;j'</span>, X)   <span class="co"># shape: [4]</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 행별 합계 (축소)</span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'ij-&gt;i'</span>, X)   <span class="co"># shape: [3]</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 자기 자신과의 외적 (브로드캐스팅)</span></span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>torch.einsum(<span class="st">'i,j-&gt;ij'</span>, X[<span class="dv">0</span>], X[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="핵심-요약표" class="level3">
+<h3 class="anchored" data-anchor-id="핵심-요약표">핵심 요약표</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>표현</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>'ij-&gt;j'</code></td>
+<td>i 차원을 <strong>sum</strong> → 열 합계</td>
+</tr>
+<tr class="even">
+<td><code>'i,i-&gt;'</code></td>
+<td>i 차원을 <strong>sum</strong> → 내적 (스칼라)</td>
+</tr>
+<tr class="odd">
+<td><code>'i,j-&gt;ij'</code></td>
+<td>브로드캐스트 곱 → 외적 (Outer Product)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="정리" class="level3">
+<h3 class="anchored" data-anchor-id="정리">정리</h3>
+<ul>
+<li><code>einsum</code>에서 <code>같은 문자가 두 번 등장하면 → 축소(sum)</code></li>
+<li><strong>다른 문자끼리는 → 브로드캐스트</strong></li>
+<li>브로드캐스트는 자동이 아니라, <strong>명시된 인덱스로 의도적으로 설계</strong></li>
+</ul>
+</section>
+</section>
+<section id="추가-질문들" class="level2">
+<h2 class="anchored" data-anchor-id="추가-질문들">추가 질문들</h2>
+<ul>
+<li><p><code>einsum('bij,bjk-&gt;bik')</code>은 어떤 차원 연산을 수행하는가? 직접 shape 예시로 설명해봐.</p></li>
+<li><p><code>einsum</code>을 사용해 MSE (Mean Squared Error)를 한 줄로 계산하려면 어떤 식이 될까?</p></li>
+<li><p><code>einsum</code>의 표현력을 이용해 CNN 필터 적용 전 dot product를 명시적으로 작성해볼 수 있을까?</p></li>
+</ul>
+
+
 </section>
 </section>
 
