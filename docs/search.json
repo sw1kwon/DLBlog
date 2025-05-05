@@ -228,7 +228,7 @@
     "href": "index.html",
     "title": "Deep Learning",
     "section": "",
-    "text": "Based on: https://guebin.github.io/DL2025/\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nMar 31, 2025\n\n\n04wk-2: (신경망) – 꺽인그래프의 한계(?), 시벤코정리, MNIST\n\n\nsw1kwon \n\n\n\n\nMar 26, 2025\n\n\n04wk-1: (신경망) – 로지스틱의 한계 극복\n\n\n최규빈 \n\n\n\n\nMar 24, 2025\n\n\n03wk-2: (로지스틱) – sig(linr(x)), BCELoss, Adam, 로지스틱의 한계\n\n\nsw1kwon \n\n\n\n\nMar 19, 2025\n\n\n03wk-1: (회귀, 로지스틱) – 파이토치식 코딩패턴 (2), 로지스틱 모형\n\n\nsw1kwon \n\n\n\n\nMar 17, 2025\n\n\n02wk-2: (회귀) – 파라메터의 학습과정 음미, MSE, 파이토치식 코딩패턴 (1)\n\n\nsw1kwon \n\n\n\n\nMar 10, 2025\n\n\n01wk-2, 02wk-1: (회귀) – 회귀모형, 손실함수, 파이토치를 이용한 추정\n\n\nsw1kwon \n\n\n\n\nMar 5, 2025\n\n\n01wk-1: (토치) – 강의소개, 파이토치 기본\n\n\nsw1kwon \n\n\n\n\n\nNo matching items"
+    "text": "Based on: https://guebin.github.io/DL2025/\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nMar 31, 2025\n\n\n04wk-2: (신경망) – 꺽인그래프의 한계(?), 시벤코정리, MNIST\n\n\nsw1kwon \n\n\n\n\nMar 26, 2025\n\n\n04wk-1: (신경망) – 로지스틱의 한계 극복\n\n\nsw1kwon \n\n\n\n\nMar 24, 2025\n\n\n03wk-2: (로지스틱) – sig(linr(x)), BCELoss, Adam, 로지스틱의 한계\n\n\nsw1kwon \n\n\n\n\nMar 19, 2025\n\n\n03wk-1: (회귀, 로지스틱) – 파이토치식 코딩패턴 (2), 로지스틱 모형\n\n\nsw1kwon \n\n\n\n\nMar 17, 2025\n\n\n02wk-2: (회귀) – 파라메터의 학습과정 음미, MSE, 파이토치식 코딩패턴 (1)\n\n\nsw1kwon \n\n\n\n\nMar 10, 2025\n\n\n01wk-2, 02wk-1: (회귀) – 회귀모형, 손실함수, 파이토치를 이용한 추정\n\n\nsw1kwon \n\n\n\n\nMar 5, 2025\n\n\n01wk-1: (토치) – 강의소개, 파이토치 기본\n\n\nsw1kwon \n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/03wk-1.html",
