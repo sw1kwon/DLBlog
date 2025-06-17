@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="sw1kwon">
+<meta name="dcterms.date" content="2025-06-09">
+
+<title>14wk-2: (강화학습) – 4x4 Grid World q_table, Appedix B – DeepLearning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0626ff4d7a71b55c8707dcae1d04a9b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3f453be5ec2ee49e579b43b94346acdb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DeepLearning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">14wk-2: (강화학습) – 4x4 Grid World <code>q_table</code>, Appedix B</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>sw1kwon </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 9, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#강의노트-원본-및-영상-링크" id="toc-강의노트-원본-및-영상-링크" class="nav-link active" data-scroll-target="#강의노트-원본-및-영상-링크">1. 강의노트 원본 및 영상 링크</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">2. Imports 📝</a></li>
+  <li><a href="#q_table" id="toc-q_table" class="nav-link" data-scroll-target="#q_table">3. <code>q_table</code> 📝</a>
+  <ul class="collapse">
+  <li><a href="#a.-미래보상" id="toc-a.-미래보상" class="nav-link" data-scroll-target="#a.-미래보상">A. 미래보상</a></li>
+  <li><a href="#b.-감가율" id="toc-b.-감가율" class="nav-link" data-scroll-target="#b.-감가율">B. 감가율</a></li>
+  <li><a href="#c.-q_table-update" id="toc-c.-q_table-update" class="nav-link" data-scroll-target="#c.-q_table-update">C. <code>q_table</code> update</a></li>
+  </ul></li>
+  <li><a href="#solve" id="toc-solve" class="nav-link" data-scroll-target="#solve">4. Solve 📝</a></li>
+  <li><a href="#appendix-b---신경망관련용어" id="toc-appendix-b---신경망관련용어" class="nav-link" data-scroll-target="#appendix-b---신경망관련용어">Appendix B - 신경망관련용어 📝</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>📘 <strong>Note Format Guide</strong></p>
+<p>This format serves as a structured guide for organizing lecture content, personal interpretation, experiments, and study-related questions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 42%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>What It Means</th>
+<th>When I Use It</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>📝 Lecture</td>
+<td>Original material from the professor’s notes</td>
+<td>When I’m referencing core concepts or provided code</td>
+</tr>
+<tr class="even">
+<td>🗣️ In-Class Note</td>
+<td>Verbal explanations shared during the lecture</td>
+<td>When I want to record something the professor said in class but didn’t include in the official notes</td>
+</tr>
+<tr class="odd">
+<td>✍️ My Note</td>
+<td>My thoughts, interpretations, or additional explanations</td>
+<td>When I reflect on or explain something in my own words</td>
+</tr>
+<tr class="even">
+<td>🔬 Experiment</td>
+<td>Code I tried out or changed to explore further</td>
+<td>When I test variations or go beyond the original example</td>
+</tr>
+<tr class="odd">
+<td>❓ Question</td>
+<td>Questions I had while studying</td>
+<td>When I want to revisit or research something more deeply</td>
+</tr>
+</tbody>
+</table>
+<p>📝 🗣️ ✍️ 🔬 ❓</p>
+<section id="강의노트-원본-및-영상-링크" class="level1">
+<h1>1. 강의노트 원본 및 영상 링크</h1>
+<p><a href="https://guebin.github.io/DL2025/posts/14wk-2.html">https://guebin.github.io/DL2025/posts/14wk-2.html</a></p>
+</section>
+<section id="imports" class="level1">
+<h1>2. Imports 📝</h1>
+<div id="bc5249ee-745e-4945-a841-b375fcb301bc" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gymnasium <span class="im">as</span> gym</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> collections</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="q_table" class="level1">
+<h1>3. <code>q_table</code> 📝</h1>
+<blockquote class="blockquote">
+<p><code>q[s1,s2,a]</code>는 상태 (s1,s2) 에서 행동 a의 “품질”을 의미한다.</p>
+</blockquote>
+<p><code>-</code> 직관적으로 푸는 방법 (손으로 푸는 다이나믹 프로그래밍)</p>
+<p><img src="https://github.com/guebin/DL2025/blob/main/posts/14wk-2-fig1.png?raw=true" class="img-fluid"></p>
+<section id="a.-미래보상" class="level2">
+<h2 class="anchored" data-anchor-id="a.-미래보상">A. 미래보상</h2>
+<ul>
+<li>🗣️
+<ul>
+<li>밴딧 게임은 미래보상이 없음 (다음 State가 없음)</li>
+</ul></li>
+</ul>
+<p><code>-</code> 언뜻생각하면 4x4 문제에서 <code>q_table</code>은 아래와 같이 생각하는게 합리적인듯 보인다.</p>
+<ul>
+<li><code>q[s1,s2,a]</code> = 상태 (s1,s2)에서 행동 a를 했을 경우 얻게되는 보상의 평균</li>
+<li><span class="math inline">\(q(s,a) = r(s,a) = \mathbb{E}[\text{Reward} | \text{State}=s, \text{Action}=a]\)</span></li>
+</ul>
+<p>그렇지만 아래와 같이 생각하는게 더 합리적이다.</p>
+<ul>
+<li><code>q[s1,s2,a]</code> = 상태 (s1,s2)에서 행동 a를 했을 경우 얻게되는 보상의 평균 + 미래에 얻게되리라 기대하는 보상</li>
+<li><span class="math inline">\(q(s,a) = r(s,a) + r_{\text{future}}\)</span></li>
+</ul>
+<blockquote class="blockquote">
+<p>단, 여기에서 미래에 얻게되리라 기대하는 보상은 최선의 선택을 한다는 전제하에 계산</p>
+</blockquote>
+<p><code>-</code> 미래에 얻게되리라 기대하는 보상은 어떻게 정의할 수 있을까?</p>
+<p><img src="https://github.com/guebin/DL2025/blob/main/posts/14wk-1-fig2.png?raw=true" class="img-fluid"></p>
+<p><code># 예제1</code> – 상태 (2,2) 에서 “action=down” 을 했을때</p>
+<ul>
+<li>즉시 얻게되는 보상과</li>
+<li>미래에 얻게되리라 기대하는 보상</li>
+</ul>
+<p>은 무엇인가? 이것을 바탕으로 <span class="math inline">\(s=(2,1)\)</span>, <span class="math inline">\(a=\text{down}\)</span> 의 품질(Quality)는 어떻게 평가할 수 있는가?</p>
+<p><code>(풀이?)</code></p>
+<p>즉시 얻을 수 있다고 생각되는 보상은-1 이고 미래에 얻으리라 기대되는 보상은 100 점이다. 따라서 99점으로 평가하는게 합리적인듯하다. 수식으로 쓰면</p>
+<p><span class="math display">\[q(s,a)=q(s_1,s_2,a)=q(2,2, \text{down}) = -1 + 100 = r(2,2,\text{down}) + \max_{a'}q(3,2,a')\]</span></p>
+<p>와 같이 쓸 수 있겠다.</p>
+<ul>
+<li>🗣️
+<ul>
+<li><span class="math inline">\(\max_{a'}q(3,2,a')\)</span>= (3,2)에서 할 수 있는 모든 액션들을 고려하였을 때 받게 되는 최대 품질</li>
+<li><span class="math inline">\(a'\)</span> = 0,1,2,3 = 왼쪽,오른쪽,아래,위
+<ul>
+<li>q(3,2,왼)=?? &lt; 100</li>
+<li>q(3,2,오)=100</li>
+<li>q(3,2,아)=-10</li>
+<li>q(3,2,위)=?? &lt; 100</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><code>#</code></p>
+<p><code># 예제2</code> – 상태 (1,2) 에서 “action=down” 을 했을때</p>
+<ul>
+<li>즉시 얻게되는 보상과</li>
+<li>미래에 얻게되리라 기대하는 보상</li>
+</ul>
+<p>은 무엇인가? 이것을 바탕으로 <span class="math inline">\(s=(1,2)\)</span>, <span class="math inline">\(a=\text{down}\)</span> 의 품질(Quality)는 어떻게 평가할 수 있는가?</p>
+<p><code>(풀이?)</code></p>
+<p>즉시 얻을 수 있다고 생각되는 보상은-1 이고 미래에 얻으리라 기대되는 보상은 99점이다. 따라서 98점으로 평가하는게 합리적인듯하다. 수식으로 쓰면</p>
+<p><span class="math display">\[q(s,a)=q(s_1,s_2,a)=q(1,2, \text{down}) = -1 + 99 = r(1,2,\text{down}) + \max_{a'}q(2,2,a')\]</span></p>
+<p>와 같이 쓸 수 있겠다.</p>
+<ul>
+<li>🗣️
+<ul>
+<li><span class="math inline">\(\max_{a'}q(2,2,a')\)</span>= (2,2)에서 할 수 있는 모든 액션들을 고려하였을 때 받게 되는 최대 품질
+<ul>
+<li>q(3,2,up)=?? &lt; 99</li>
+<li>q(3,2,down)=99</li>
+<li>q(3,2,right)=99</li>
+<li>q(3,2,left)=?? &lt; 99</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><code>#</code></p>
+<p><code># 예제3</code> – 상태 (0,1) 에서 “action=right” 을 했을때</p>
+<ul>
+<li>즉시 얻게되는 보상과</li>
+<li>미래에 얻게되리라 기대하는 보상</li>
+</ul>
+<p>은 무엇인가? 이것을 바탕으로 <span class="math inline">\(s=(0,1)\)</span>, <span class="math inline">\(a=\text{right}\)</span> 의 품질(Quality)는 어떻게 평가할 수 있는가?</p>
+<p><code>(풀이?)</code></p>
+<p>앞의 예제들을 일반화하면 아래와 같은 수식을 쓸 수 있다.</p>
+<p><span class="math display">\[q(0,1, \text{right}) = r(0,1,\text{right}) + \max_{a'}q(0,2,a')\]</span></p>
+<p>따라서 만약에 <span class="math inline">\(\max_{a}q(0,2,a)\)</span>의 값을 알고 있다면 이를 구할 수 있다.</p>
+<p><code>#</code></p>
+<p><code>-</code> (아직 부족한) 깨달음: 모든 <span class="math inline">\((s,a)\)</span>에 대하여 <span class="math inline">\(q(s,a)\)</span>의 값은 아래와 같이 정의할 수 있겠다.</p>
+<p><span class="math display">\[q(s,a) = r(s,a) + \max_{a'}q(s',a')\]</span></p>
+</section>
+<section id="b.-감가율" class="level2">
+<h2 class="anchored" data-anchor-id="b.-감가율">B. 감가율</h2>
+<p><code># 예제1</code> – 당신은 지금 아무것도 쓰여 있지 않은 빈 종이 한 장을 가지고 있습니다. 이 종이에 쓸 수 있는 숫자는 오직 두 가지, 0 또는 1입니다. 어떤 숫자를 쓰느냐에 따라 보상이 달라지는데, 수많은 실험을 통해 0을 쓰면 아무 보상도 없고, 1을 쓰면 10만 원을 받을 수 있다는 사실이 확인되었습니다. 이 사실이 확인된 이후 이 빈 종이의 가치는 얼마일까요?</p>
+<p><code>(1)</code> 0원이다.</p>
+<p><code>(2)</code> 10만원이다.</p>
+<p><code>(3)</code> 5만원이다.</p>
+<p><code>(4)</code> 모르겠다.</p>
+<p><code>#</code></p>
+<p><code># 예제2</code> – 당신 앞에는 빨간색 종이 한 장이 있습니다. 이 종이에는 0 또는 1 중 하나의 숫자를 쓸 수 있습니다. 만약 1을 쓰면 다음 단계인 주황색 종이 한 장을 받게 됩니다. 주황색 종이에도 똑같이 0 또는 1을 쓸 수 있고, 여기에 1을 쓰면 노란색 종이, 그다음은 초록색 종이, 그 다음은 파란색 종이, 그 다음은 남색 종이, 마지막으로는 보라색 종이를 순서대로 받습니다. 총 7단계(빨강 → 주황 → 노랑 → 초록 → 파랑 → 남색 → 보라색)를 거친 후, 보라색 종이에 1을 쓰면 비로소 10만 원의 현금 보상을 받을 수 있습니다. 단, 어느 단계에서든 0을 쓰면 아무 일도 일어나지 않고 그 즉시 게임이 종료됩니다. 즉, 그 이후로는 종이도 받을 수 없고 보상도 없습니다. 이 사실이 알려진 이후, 지금 당신이 들고 있는 ’빨간색 종이’의 가치는 얼마일까요?</p>
+<p><code>(1)</code> 0원이다.</p>
+<p><code>(2)</code> 10만 원이다.</p>
+<p><code>(3)</code> <span class="math inline">\(\frac{1}{2^6}\)</span> x 10만원이다.</p>
+<p><code>(4)</code> 모르겠다.</p>
+<p>🗣️(</p>
+<ul>
+<li>둘 다 답 (4)
+<ul>
+<li>10만원을 받아도 굳이 숫자를 써야하는 종이를 10만원을 똑같이 주고 살 이유는 없음</li>
+<li>아무리 미래 보상이 확실해도 지금 당장 받는 것보다는 가격이 떨어짐
+<ul>
+<li>예제 2에서 빨간색 종이와 보라색 종이를 선택하라고 하면 전부 보라색 종이를 선택함</li>
+</ul></li>
+<li>거래 당사자 간의 합의된 감가율에 따라 달라짐</li>
+</ul></li>
+</ul>
+<div id="a3e97bfc-402e-4e24-a2f2-45299a0c3e46" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.99</span> <span class="co"># 보라색 종이의 가치를 0.99라고 한다면</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>0.99</code></pre>
+</div>
+</div>
+<div id="d9eea832-6cc8-4fcb-8255-638c987a6579" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.99</span><span class="op">**</span><span class="dv">2</span> <span class="co"># 남색 종이의 가치</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>0.9801</code></pre>
+</div>
+</div>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<p><code>-</code> 직관: 아무리 보장된 보상이라고 해도, 미래에 주어지는 보상은 현재의 보상과 동급취급할 수 없다.</p>
+<p><code>-</code> 진짜 깨달음: 모든 <span class="math inline">\((s,a)\)</span>에 대하여 <span class="math inline">\(q(s,a)\)</span>의 값은 아래와 같이 정의하는게 합리적이다.</p>
+<p><span class="math display">\[q(s,a) = r(s,a) + \gamma \max_{a'}q(s',a')\]</span></p>
+<p>여기에서 <span class="math inline">\(\gamma\)</span>는 0과 1사이의 값이며 감가율(<strong>discout factor</strong>)이라 부른다.</p>
+<ul>
+<li>🗣️
+<ul>
+<li>즉시 받게 되는 보상 + 감가율 * 미래에 받게 되는 보상</li>
+</ul></li>
+</ul>
+</section>
+<section id="c.-q_table-update" class="level2">
+<h2 class="anchored" data-anchor-id="c.-q_table-update">C. <code>q_table</code> update</h2>
+<p><code>-</code> 지난시간코드</p>
+<div id="2ef89baf-d4ed-43d9-98ee-1b8a59ccc056" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GridWorld:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a2d <span class="op">=</span> {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>: np.array([<span class="dv">0</span>,<span class="dv">1</span>]), <span class="co"># →</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="dv">1</span>: np.array([<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]), <span class="co"># ←  </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="dv">2</span>: np.array([<span class="dv">1</span>,<span class="dv">0</span>]),  <span class="co"># ↓</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="dv">3</span>: np.array([<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>])  <span class="co"># ↑</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state_space <span class="op">=</span> gym.spaces.MultiDiscrete([<span class="dv">4</span>,<span class="dv">4</span>])</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>])</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.reward <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>,action):</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> <span class="va">self</span>.state <span class="op">+</span> <span class="va">self</span>.a2d[action]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        s1,s2 <span class="op">=</span> <span class="va">self</span>.state</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (s1<span class="op">==</span><span class="dv">3</span>) <span class="kw">and</span> (s2<span class="op">==</span><span class="dv">3</span>):</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.reward <span class="op">=</span> <span class="dv">100</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.state <span class="kw">in</span> <span class="va">self</span>.state_space:</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.reward <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.reward <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     f"action = {action}\t"</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     f"state = {self.state - self.a2d[action]} -&gt; {self.state}\t"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     f"reward = {self.reward}\t"</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">#     f"termiated = {self.terminated}"</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># )            </span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.state, <span class="va">self</span>.reward, <span class="va">self</span>.terminated</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>):</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>])</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.state</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RandomAgent:</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">0</span>]) </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.action <span class="op">=</span> <span class="va">None</span> </span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.reward <span class="op">=</span> <span class="va">None</span> </span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.next_state <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.terminated <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        <span class="co">#---#</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.states <span class="op">=</span> collections.deque(maxlen<span class="op">=</span><span class="dv">500000</span>)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actions <span class="op">=</span> collections.deque(maxlen<span class="op">=</span><span class="dv">500000</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rewards <span class="op">=</span> collections.deque(maxlen<span class="op">=</span><span class="dv">500000</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.next_states <span class="op">=</span> collections.deque(maxlen<span class="op">=</span><span class="dv">500000</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.terminations <span class="op">=</span> collections.deque(maxlen<span class="op">=</span><span class="dv">500000</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">#---#</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.action_space <span class="op">=</span> gym.spaces.Discrete(<span class="dv">4</span>)</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_experience <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> act(<span class="va">self</span>):</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.action <span class="op">=</span> <span class="va">self</span>.action_space.sample()</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> save_experience(<span class="va">self</span>):</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.states.append(<span class="va">self</span>.state)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.actions.append(<span class="va">self</span>.action)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rewards.append(<span class="va">self</span>.reward)</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.next_states.append(<span class="va">self</span>.next_state)</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.terminations.append(<span class="va">self</span>.terminated)</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_experience <span class="op">=</span> <span class="va">self</span>.n_experience <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> learn(<span class="va">self</span>):</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f386fb27-af90-4d63-b3e9-495943c3863a" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>player <span class="op">=</span> RandomAgent()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>env <span class="op">=</span> GridWorld()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [] </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">100000</span>):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#---에피소드시작---#</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># step1 -- 액션선택</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        player.act()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># step2 -- 환경반응 </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        player.next_state, player.reward, player.terminated <span class="op">=</span> env.step(player.action)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># step3 -- 경험기록 &amp; 학습 </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        player.save_experience()</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        player.learn()</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># step4 --종료 조건 체크 &amp; 후속 처리</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> env.terminated:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> score <span class="op">+</span> player.reward</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            scores.append(score)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            player.state <span class="op">=</span> env.reset() </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> score <span class="op">+</span> player.reward         </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            player.state <span class="op">=</span> player.next_state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><em>강의노트 수정 2025-06-12</em></strong></p>
+<p>노규호학생의 도움으로 예전강의의 오류를 발견하여 수정하였습니다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 수정전</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> env.terminated:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            ...</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> score <span class="op">+</span> player.reward</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            scores.append(score)            </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            player.state <span class="op">=</span> player.next_state</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 수정후</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> env.terminated:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            ...</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> score <span class="op">+</span> player.reward</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#            scores.append(score)            </span><span class="al">###</span><span class="co"> &lt;--- 여기를 주석처리해야함!! </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>            player.state <span class="op">=</span> player.next_state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><code>-</code> 상황: player가 경험은 있는데, q_table을 만들줄 모름 (데이터는 있음, 학습이 안된상태)</p>
+<div id="0d33c52a-1503-42ab-a162-4ae66c75b82d" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>player.n_experience</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>326783</code></pre>
+</div>
+</div>
+<p><code>-</code> 저번시간에 배운 <code>q_table</code></p>
+<div id="ada8e724-8499-437a-8c53-aab1fbc75859" class="cell" data-execution_count="212">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r <span class="kw">in</span> memory:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던갓</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cc7e1ac9-9fc6-4605-b885-744630e77245" class="cell" data-execution_count="213">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]: </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"action = </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"q[...,</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">] = </span><span class="sc">{</span>q_table[...,a]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>action = 0
+q[...,0] = [[ -1.     -1.     -1.    -10.   ]
+ [ -1.     -1.     -1.    -10.   ]
+ [ -1.     -1.     -1.     -9.999]
+ [ -1.     -1.     99.991   0.   ]]
+---
+action = 1
+q[...,1] = [[-10.  -1.  -1.  -1.]
+ [-10.  -1.  -1.  -1.]
+ [-10.  -1.  -1.  -1.]
+ [-10.  -1.  -1.   0.]]
+---
+action = 2
+q[...,2] = [[ -1.     -1.     -1.     -1.   ]
+ [ -1.     -1.     -1.     -1.   ]
+ [ -1.     -1.     -1.     99.993]
+ [-10.    -10.     -9.999   0.   ]]
+---
+action = 3
+q[...,3] = [[-10. -10. -10. -10.]
+ [ -1.  -1.  -1.  -1.]
+ [ -1.  -1.  -1.  -1.]
+ [ -1.  -1.  -1.   0.]]
+---</code></pre>
+</div>
+</div>
+<ul>
+<li>🗣️
+<ul>
+<li>action 0: 오른쪽</li>
+<li>action 1: 왼쪽</li>
+<li>action 2: 아래</li>
+<li>action 3: 위</li>
+</ul></li>
+</ul>
+<p><code>-</code> 이번시간에 배운 <code>q_table</code>: 아래를 이용한다.</p>
+<p><span class="math display">\[q(s,a) = r(s,a) + \gamma \max_{a'}q(s',a')\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>사실 좀 더 실용적으로는(=코딩친화적으로는) 아래의 수식을 쓰는게 좋다.</p>
+<p><span class="math display">\[q(s,a) = \begin{cases} r(s,a) &amp; \text{if terminated} \\ r(s,a) + \gamma \max_{a'}q(s',a') &amp; \text{else} \end{cases}\]</span></p>
+</div>
+</div>
+<p>🗣️(</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r <span class="kw">in</span> memory:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던 값</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tmd:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        future <span class="op">=</span> q_table[ss1,ss2,:].<span class="bu">max</span>() <span class="co"># ss1,ss2 : 다음 상태</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="op">+</span> <span class="fl">0.95</span><span class="op">*</span>future</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>정의 되어 있지 않은 내용을 쓰면</li>
+</ul>
+<div id="e02a8323-a0a2-4ccf-b4b4-a95ea3a9e8f8" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># player.next_states # 다음 상태가 저장되어 있음</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="46a962ed-204f-40c8-b0b8-ef8cc891b26a" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># player.terminations # True, False가 저장되어 있음</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="472302b6-bcd1-42cb-8aaa-1988d2cbe9e6" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards, player.next_states, player.terminations)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r, (ss1,ss2), tmd <span class="kw">in</span> memory:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던 값</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tmd:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        future <span class="op">=</span> q_table[ss1,ss2,:].<span class="bu">max</span>() <span class="co"># ss1,ss2 : 다음 상태</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="op">+</span> <span class="fl">0.95</span><span class="op">*</span>future</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="41bb8c30-f686-466e-8653-7f89c099bdc1" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">0</span>] <span class="co"># action 0 을 했을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([[72.83952058, 77.72350932, 82.80344973, -9.99996536],
+       [77.72636791, 82.87118608, 88.27814712, -9.99999613],
+       [82.86957406, 88.28769271, 93.99071303, -9.9993985 ],
+       [88.24270099, 93.97700808, 99.99082608,  0.        ]])</code></pre>
+</div>
+</div>
+<ul>
+<li>감가율을 5%가 아니라 1%만 깎으면 값이 조금 더 커짐 (미래에 대한 보상을 조금 더 높게 치므로)</li>
+</ul>
+<div id="a62244b0-f492-441f-8009-29a532a804d4" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards, player.next_states, player.terminations)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r, (ss1,ss2), tmd <span class="kw">in</span> memory:</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던 값</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tmd:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        future <span class="op">=</span> q_table[ss1,ss2,:].<span class="bu">max</span>() <span class="co"># ss1,ss2 : 다음 상태</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="op">+</span> <span class="fl">0.99</span><span class="op">*</span>future</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8de68fb9-857a-4f25-9d0c-24fe8d4d1ab2" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">0</span>] <span class="co"># action 0 을 했을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>array([[90.18056786, 92.09886903, 93.96750757, -9.99996536],
+       [92.10224034, 94.04416666, 95.99626811, -9.99999613],
+       [94.04234232, 96.00663449, 97.990322  , -9.9993985 ],
+       [95.95777379, 97.97603998, 99.99082608,  0.        ]])</code></pre>
+</div>
+</div>
+<ul>
+<li>학습하기에는 5%가 나을 것 같음 (값마다 차이가 크므로)</li>
+</ul>
+<div id="14539036-1a33-4b9c-b26b-ee07391973d8" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards, player.next_states, player.terminations)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r, (ss1,ss2), tmd <span class="kw">in</span> memory:</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던 값</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tmd:</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        future <span class="op">=</span> q_table[ss1,ss2,:].<span class="bu">max</span>() <span class="co"># ss1,ss2 : 다음 상태</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="op">+</span> <span class="fl">0.95</span><span class="op">*</span>future</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b2a773cf-b7f8-4a40-87e3-3506b8b833dd" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">0</span>] <span class="co"># action 0 을 했을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>array([[72.83952058, 77.72350932, 82.80344973, -9.99996536],
+       [77.72636791, 82.87118608, 88.27814712, -9.99999613],
+       [82.86957406, 88.28769271, 93.99071303, -9.9993985 ],
+       [88.24270099, 93.97700808, 99.99082608,  0.        ]])</code></pre>
+</div>
+</div>
+<div id="456121fa-736c-4d2c-b116-dfa7200a6fa7" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">1</span>] <span class="co"># 왼쪽으로 갔을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>array([[-10.        ,  68.19615723,  72.83448762,  77.68726629],
+       [-10.        ,  72.83795619,  77.72290021,  82.84620653],
+       [-10.        ,  77.72026164,  82.86332991,  88.19689967],
+       [ -9.99997682,  82.748506  ,  88.11876519,   0.        ]])</code></pre>
+</div>
+</div>
+<div id="8d92d498-487e-420f-b73f-07da39ddd825" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">2</span>] <span class="co"># 아래로 갔을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>array([[72.83963932, 77.72633004, 82.86856325, 88.23479886],
+       [77.72428797, 82.8712446 , 88.28755321, 93.9835884 ],
+       [82.81365039, 88.27147768, 93.98527541, 99.99427983],
+       [-9.99998066, -9.99999722, -9.99915348,  0.        ]])</code></pre>
+</div>
+</div>
+<div id="a85df18b-91c7-4b0f-b486-2fa88d8842c3" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>q_table[...,<span class="dv">3</span>] <span class="co"># 위로 갔을 때 테이블</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>array([[-10.        , -10.        , -10.        ,  -9.99997587],
+       [ 68.19612628,  72.8376872 ,  77.7195001 ,  82.71315412],
+       [ 72.83517558,  77.72302563,  82.86358289,  88.14411865],
+       [ 77.68021549,  82.84140857,  88.18561423,   0.        ]])</code></pre>
+</div>
+</div>
+<ul>
+<li>액션에 따라 출력</li>
+</ul>
+<div id="4c719e73-8b87-4cc8-b3b6-59456fe9c07d" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]: </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"action = </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"q[...,</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">] = </span><span class="sc">{</span>q_table[...,a]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>action = 0
+q[...,0] = [[ 72.84   77.724  82.803 -10.   ]
+ [ 77.726  82.871  88.278 -10.   ]
+ [ 82.87   88.288  93.991  -9.999]
+ [ 88.243  93.977  99.991   0.   ]]
+---
+action = 1
+q[...,1] = [[-10.     68.196  72.834  77.687]
+ [-10.     72.838  77.723  82.846]
+ [-10.     77.72   82.863  88.197]
+ [-10.     82.749  88.119   0.   ]]
+---
+action = 2
+q[...,2] = [[ 72.84   77.726  82.869  88.235]
+ [ 77.724  82.871  88.288  93.984]
+ [ 82.814  88.271  93.985  99.994]
+ [-10.    -10.     -9.999   0.   ]]
+---
+action = 3
+q[...,3] = [[-10.    -10.    -10.    -10.   ]
+ [ 68.196  72.838  77.72   82.713]
+ [ 72.835  77.723  82.864  88.144]
+ [ 77.68   82.841  88.186   0.   ]]
+---</code></pre>
+</div>
+</div>
+<div id="51d731a7-2061-4562-ae1b-d62f95845ad8" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># player.q_table # 정의힌 적이 없으므로 error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7fd2f336-4ab6-413e-89c3-a873dff48b4e" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>player.q_table <span class="op">=</span> q_table <span class="co"># 방금 한 것을 덮어 씌우면</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6e8078f0-5986-4737-96aa-cf8af8a74c28" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>player.q_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>array([[[ 72.83952058, -10.        ,  72.83963932, -10.        ],
+        [ 77.72350932,  68.19615723,  77.72633004, -10.        ],
+        [ 82.80344973,  72.83448762,  82.86856325, -10.        ],
+        [ -9.99996536,  77.68726629,  88.23479886,  -9.99997587]],
+
+       [[ 77.72636791, -10.        ,  77.72428797,  68.19612628],
+        [ 82.87118608,  72.83795619,  82.8712446 ,  72.8376872 ],
+        [ 88.27814712,  77.72290021,  88.28755321,  77.7195001 ],
+        [ -9.99999613,  82.84620653,  93.9835884 ,  82.71315412]],
+
+       [[ 82.86957406, -10.        ,  82.81365039,  72.83517558],
+        [ 88.28769271,  77.72026164,  88.27147768,  77.72302563],
+        [ 93.99071303,  82.86332991,  93.98527541,  82.86358289],
+        [ -9.9993985 ,  88.19689967,  99.99427983,  88.14411865]],
+
+       [[ 88.24270099,  -9.99997682,  -9.99998066,  77.68021549],
+        [ 93.97700808,  82.748506  ,  -9.99999722,  82.84140857],
+        [ 99.99082608,  88.11876519,  -9.99915348,  88.18561423],
+        [  0.        ,   0.        ,   0.        ,   0.        ]]])</code></pre>
+</div>
+</div>
+<p>)🗣️</p>
+<div id="f8965057-d2b6-4873-8094-d9927019416a" class="cell" data-execution_count="220">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>q_table <span class="op">=</span> np.zeros((<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> <span class="bu">zip</span>(player.states, player.actions, player.rewards, player.next_states, player.terminations)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s1,s2), a, r, (ss1,ss2), tmd  <span class="kw">in</span> memory:</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    qhat <span class="op">=</span> q_table[s1,s2,a] <span class="co"># 내가 생각했던값</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tmd: </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="co"># 실제값</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        future <span class="op">=</span> q_table[ss1,ss2,:].<span class="bu">max</span>()</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> r <span class="op">+</span> <span class="fl">0.95</span> <span class="op">*</span> future</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> q<span class="op">-</span>qhat <span class="co"># 차이</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    q_table[s1,s2,a] <span class="op">=</span> q_table[s1,s2,a]  <span class="op">+</span> <span class="fl">0.01</span><span class="op">*</span>diff<span class="co"># update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a2b239bc-60ed-4a34-b02a-665ecc4179fb" class="cell" data-execution_count="226">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]: </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"action = </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"q[...,</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">] = </span><span class="sc">{</span>q_table[...,a]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>action = 0
+q[...,0] = [[ 72.838  77.721  82.807 -10.   ]
+ [ 77.725  82.87   88.276 -10.   ]
+ [ 82.867  88.285  93.989  -9.999]
+ [ 88.229  93.978  99.991   0.   ]]
+---
+action = 1
+q[...,1] = [[-10.     68.195  72.833  77.683]
+ [-10.     72.836  77.721  82.849]
+ [-10.     77.717  82.862  88.186]
+ [-10.     82.723  88.128   0.   ]]
+---
+action = 2
+q[...,2] = [[ 72.838  77.724  82.867  88.241]
+ [ 77.721  82.869  88.286  93.982]
+ [ 82.801  88.272  93.985  99.993]
+ [-10.    -10.     -9.999   0.   ]]
+---
+action = 3
+q[...,3] = [[-10.    -10.    -10.    -10.   ]
+ [ 68.195  72.835  77.718  82.734]
+ [ 72.832  77.721  82.863  88.122]
+ [ 77.678  82.845  88.216   0.   ]]
+---</code></pre>
+</div>
+</div>
+<pre><code>action 0: 오른쪽
+action 1: 왼쪽
+action 2: 아래쪽
+action 3: 위쪽</code></pre>
+<div id="c9f3b036-d9b9-47d8-8acf-7d27cb12c5f7" class="cell" data-execution_count="229">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>player.q_table <span class="op">=</span> q_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>-</code> 이제 플레이어의 행동은?</p>
+<p>🗣️(</p>
+<div id="576a6f71-5db7-4dfc-a1c3-ed38399d091b" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>s1<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>s2<span class="op">=</span><span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4b733d15-5f0a-4206-aabd-2e3c4f944bce" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>player.q_table[s1,s2,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>array([ 72.83952058, -10.        ,  72.83963932, -10.        ])</code></pre>
+</div>
+</div>
+<ul>
+<li>숫자 4개 (각 액션을 했을 때의 결과), 0 또는 2의 행동을 하면 됨</li>
+</ul>
+<div id="6bbbfd15-d765-456b-9828-559ae8a00eb9" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>player.q_table[s1,s2,:].argmax() <span class="co"># 이것이 action이 되어야 함</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<div id="bf75e21f-4f51-4463-8f93-8e93d6013cd2" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> act(player,s1,s2):</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    action <span class="op">=</span> player.q_table[s1,s2,:].argmax()</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> action</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2e7d7d6b-5a05-4f9f-80fb-263c76471580" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">0</span>,<span class="dv">0</span>) <span class="co"># player 오브젝트 안에는 q_table이 있음</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<pre><code>action 0: 오른쪽
+action 1: 왼쪽
+action 2: 아래쪽
+action 3: 위쪽</code></pre>
+<p>✍️ 강의 영상과 세부 방향은 다름 (큰 틀은 동일)</p>
+<div id="4a168cf5-1208-425f-a033-379e4cdc699b" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">0</span>,<span class="dv">0</span>) <span class="co"># 출발에서 아래쪽이므로 맞는 것 같음 (강의 영상은 오른쪽)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<div id="1ddde5de-65ae-4222-9911-4dda8f6cc6ed" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># 오른쪽으로 이동 (1,0) =&gt; (1,1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<div id="9c9c13b0-2439-4a3c-aff2-4d80038c45fb" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">1</span>,<span class="dv">1</span>) <span class="co"># 아래쪽으로 이동 (1,1) =&gt; (2,1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<div id="e5a95669-70ca-4c66-8fec-355821519d8e" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">2</span>,<span class="dv">1</span>) <span class="co"># 오른쪽으로 이동 (2,1) =&gt; (2,2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<div id="a4fff876-1a24-4836-85cc-06e2021b69e0" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># 오른쪽으로 이동 (2,2) =&gt; (2,3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<div id="f8580810-f845-40b9-b054-799ced3cccde" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 아래쪽으로 이동 (2,3) =&gt; (3,3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<p>)🗣️</p>
+<div id="659b345f-6faa-45e5-8330-d47ab376eeb4" class="cell" data-execution_count="231">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>player.q_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="231">
+<pre><code>array([[[ 72.83771663, -10.        ,  72.83771538, -10.        ],
+        [ 77.72139771,  68.19454652,  77.72442966, -10.        ],
+        [ 82.80747929,  72.83310558,  82.86672465, -10.        ],
+        [ -9.99998197,  77.6827334 ,  88.24107054,  -9.99998511]],
+
+       [[ 77.72454812, -10.        ,  77.72127368,  68.19457346],
+        [ 82.86950596,  72.83600446,  82.86912699,  72.83541752],
+        [ 88.27585546,  77.72068451,  88.28563001,  77.71797997],
+        [ -9.99999683,  82.84920596,  93.98163671,  82.73393175]],
+
+       [[ 82.8669733 , -10.        ,  82.8012108 ,  72.83236834],
+        [ 88.28521264,  77.71722413,  88.27171754,  77.72136508],
+        [ 93.9886205 ,  82.86197892,  93.98461924,  82.86278052],
+        [ -9.99904498,  88.18588483,  99.99321405,  88.12228859]],
+
+       [[ 88.22883855,  -9.9999832 ,  -9.99997635,  77.67756866],
+        [ 93.97813902,  82.72305248,  -9.99999792,  82.84474465],
+        [ 99.99082608,  88.12798376,  -9.99917862,  88.21551322],
+        [  0.        ,   0.        ,   0.        ,   0.        ]]])</code></pre>
+</div>
+</div>
+<div id="4cfd651f-894c-40f6-adfb-f8b7aba18963" class="cell" data-execution_count="236">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> act(player,s1,s2):</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    action <span class="op">=</span> player.q_table[s1,s2,:].argmax()</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> action</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a4ffada2-ff62-42ab-b085-de64a5070a66" class="cell" data-execution_count="246">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">0</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="246">
+<pre><code>0</code></pre>
+</div>
+</div>
+<div id="6fca0cc6-3cda-4afc-b4b7-19bb0ac979b5" class="cell" data-execution_count="247">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>player.q_table[<span class="dv">0</span>,<span class="dv">0</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="247">
+<pre><code>array([ 72.83771663, -10.        ,  72.83771538, -10.        ])</code></pre>
+</div>
+</div>
+<p>🗣️(</p>
+<ul>
+<li>Q (q_table) –&gt; DQN (Deep, Network)</li>
+</ul>
+<pre><code># SARSA
+Q learning 은 SARS 까지만 생각함 (next action은 최적의 값을 가정)
+#---#
+q_table ---&gt; 어떠한 행동을 할지 결정
+학습 이후에는 정해진 path로만 감</code></pre>
+<div id="b9b74b35-df4b-47e7-96a5-a7315f77c9a5" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>act(player,<span class="dv">0</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>np.int64(2)</code></pre>
+</div>
+</div>
+<div id="8301bddd-30a8-4a0e-aa95-e81a0da00981" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>player.q_table[<span class="dv">0</span>,<span class="dv">0</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>array([ 72.83952058, -10.        ,  72.83963932, -10.        ])</code></pre>
+</div>
+</div>
+<pre><code>0과 2는 사실상 비등한 가치를 갖고 있음에도 매우 작은 차이 때문에 항상 2만 선택
+이게 맞는 건가 싶으면서 확률로 바꿔서 반반으로 선택하는 것도 생각해볼만 함
+(결정적 설계 vs 확률적 설계)
+
+하지만 밴딧게임에서 보상이 1, 10이 아니라 1, 2라면
+1을 1/(1+2)의 확률로 선택하는 것은 너무 큰 것 같음
+softmax 함수를 취해서 2에 많은 확률을 줄 수도 있음 (만들기 나름)
+
+항상 결정적으로 설계하는 것이 best가 아님을 알 수 있음
+
+많은 변형 가능
+100번 중 95번은 결정적, 5번은 확률적 등</code></pre>
+<p>)🗣️</p>
+</section>
+</section>
+<section id="solve" class="level1">
+<h1>4. Solve 📝</h1>
+<ul>
+<li>추후 hw로 풀어보세요</li>
+</ul>
+</section>
+<section id="appendix-b---신경망관련용어" class="level1">
+<h1>Appendix B - 신경망관련용어 📝</h1>
+<p><code>-</code> 은근히 용어가 헷갈리는데, 뜻을 좀 살펴보자.</p>
+<ul>
+<li>ANN: 인공신경망</li>
+<li>MLP: 다층퍼셉트론 (레이어가 여러개 있어요)</li>
+<li>DNN: 깊은신경망, 심층신경망</li>
+<li>CNN: 합성곱신경망</li>
+<li>RNN: 순환신경망</li>
+</ul>
+<p>🗣️(</p>
+<pre><code>ANN: 노드 등 포함 (Neural Network)
+MLP: 웬만하면 MLP, 그러나 레이어가 하나면 MLP라고 주장할 수 없음(회귀분석)
+DNN: Deep의 기준이 애매하긴 함 (몇층부터 깊은가?)
+CNN: Convolution 사용
+RNN: Recurrent 사용</code></pre>
+<p>)🗣️</p>
+<p><code># 예시1</code> – MLP, DNN</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">1</span>),    </span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: O</li>
+<li>DNN: O</li>
+<li>CNN: X (합성곱레이어가 없으므로)</li>
+<li>RNN: X (순환구조가 없으므로)</li>
+</ul>
+<p>🗣️(</p>
+<ul>
+<li>3층이면 깊다고 할 수 있음</li>
+<li>ANN이라고 해도 틀린 말은 아님</li>
+</ul>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<p><code># 예시2</code> – MLP, Shallow Network</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: O</li>
+<li>DNN: X (깊은 신경망으로 생각하려면 더 많은 레이어가 필요함. 합의된 기준은 히든레이어 2장이상, 이걸 설명하기 위해서 얕은 신경망이란 용어도 씀)</li>
+<li>CNN: X (합성곱레이어가 없으므로)</li>
+<li>RNN: X (순환구조가 없으므로)</li>
+</ul>
+<p>🗣️(</p>
+<ul>
+<li>2층이면 깊다고 하기 애매함</li>
+<li>MLP는 맞음</li>
+<li>2층 이하를 Shallow, 3층 이상을 DNN으로 구분해서 부르는 사람도 있음</li>
+<li>ANN은 다 부를 수 있으나 정보는 없음</li>
+</ul>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<p><code># 예시3</code> – MLP, DNN, Wide NN</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">1048576</span>),</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1048576</span>,out_features<span class="op">=</span><span class="dv">1048576</span>),</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1048576</span>,out_features<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid(),    </span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: O</li>
+<li>DNN: O (깊긴한데 이정도면 모양이 깊다기 보다는 넓은 신경망임, 그래서 어떤 연구에서는 이걸 넓은 신경망이라 부르기도 함)</li>
+<li>CNN: X (합성곱레이어가 없으므로)</li>
+<li>RNN: X (순환구조가 없으므로)</li>
+</ul>
+<p>🗣️(</p>
+<ul>
+<li>분류상으로는 DNN이 맞음</li>
+<li>그러나 위에서 보면 깊은 것보다는 넓음 (Wide NN로 부르는 사람도 있음)</li>
+</ul>
+<p>)🗣️</p>
+<p><code># 예시4</code> – CNN</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Layer1</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">1</span>, <span class="dv">64</span>, kernel_size<span class="op">=</span><span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.LeakyReLU(<span class="fl">0.2</span>),</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Layer2</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">64</span>, <span class="dv">128</span>, kernel_size<span class="op">=</span><span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.BatchNorm2d(<span class="dv">128</span>),</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    torch.nn.LeakyReLU(<span class="fl">0.2</span>),</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Layer3</span></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">128</span>, <span class="dv">256</span>, kernel_size<span class="op">=</span><span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>    torch.nn.BatchNorm2d(<span class="dv">256</span>),</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>    torch.nn.LeakyReLU(<span class="fl">0.2</span>),</span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Layer4</span></span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">256</span>, <span class="dv">512</span>, kernel_size<span class="op">=</span><span class="dv">4</span>, stride<span class="op">=</span><span class="dv">2</span>, padding<span class="op">=</span><span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a>    torch.nn.BatchNorm2d(<span class="dv">512</span>),</span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a>    torch.nn.LeakyReLU(<span class="fl">0.2</span>),</span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Layer5</span></span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">512</span>, <span class="dv">1</span>, kernel_size<span class="op">=</span><span class="dv">4</span>, stride<span class="op">=</span><span class="dv">1</span>, padding<span class="op">=</span><span class="dv">0</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb81-19"><a href="#cb81-19" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid(),</span>
+<span id="cb81-20"><a href="#cb81-20" aria-hidden="true" tabindex="-1"></a>    torch.nn.Flatten()</span>
+<span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: X (합성곱연결이 포함되어있으므로, MLP가 아님, 완전연결만 포함해야 MLP임)<br>
+</li>
+<li>DNN: O</li>
+<li>CNN: O (합성곱레이어를 포함하고 있으므로)</li>
+<li>RNN: X (순환구조가 없으므로)</li>
+</ul>
+<p>🗣️(</p>
+<ul>
+<li>MLP라고 부르지는 않음 (완전연결)</li>
+<li>참고) LeakyReLU: ReLU 개선</li>
+</ul>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<p><code># 예시5</code> – CNN</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Conv2d(<span class="dv">1</span>,<span class="dv">16</span>,(<span class="dv">5</span>,<span class="dv">5</span>)),</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.MaxPool2d((<span class="dv">2</span>,<span class="dv">2</span>)),</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Flatten(),</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">2304</span>,<span class="dv">1</span>),</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: X</li>
+<li>DNN: X? (히든레이어가 1장이므로..)</li>
+<li>CNN: O (합성곱레이어를 포함하고 있으므로)</li>
+<li>RNN: X (순환구조가 없으므로)</li>
+</ul>
+<blockquote class="blockquote">
+<p>근데 대부분의 문서에서는 CNN, RNN은 DNN의 한 종류로 설명하고 있어서요.. 이런 네트워크에서는 개념충돌이 옵니다.</p>
+</blockquote>
+<p>🗣️(</p>
+<ul>
+<li>여기서 학습 가능한 층
+<ul>
+<li>Conv2d</li>
+<li>Linear</li>
+</ul></li>
+<li>Shallow로 구분하는 사람들은 2층이라 DNN이라고 주장하기 애매</li>
+<li>이미 CNN이기 때문에 ANN, DNN을 따지는 것은 별로 의미가 없다고 생각</li>
+</ul>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<p><code># 예시6</code> – RNN</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Net(torch.nn.Module):</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rnn <span class="op">=</span> torch.nn.RNN(<span class="dv">4</span>,<span class="dv">2</span>)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linr <span class="op">=</span> torch.nn.Linear(<span class="dv">2</span>,<span class="dv">2</span>) </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>,X):</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>        h,_ <span class="op">=</span> <span class="va">self</span>.rnn(X) </span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>        netout <span class="op">=</span> <span class="va">self</span>.linr(h)</span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> netout </span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> Net()     </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>ANN: O</li>
+<li>MLP: X</li>
+<li>DNN: X? (히든레이어가 1장이므로..)</li>
+<li>CNN: X (합성곱레이어가 없으므로)</li>
+<li>RNN: O</li>
+</ul>
+<blockquote class="blockquote">
+<p>이것도 비슷한 개념충돌</p>
+</blockquote>
+<p>🗣️(</p>
+<ul>
+<li>여기서 학습 가능한 층
+<ul>
+<li>RNN</li>
+<li>Linear</li>
+</ul></li>
+<li>ANN으로 구분하는 것은 아무런 정보가 없음</li>
+<li>보통은
+<ul>
+<li>MLP와 DNN을 거의 비슷하게 사용</li>
+<li>RNN이거나 CNN인 경우 굳이 ANN,MLP,DNN으로 부르지 않음</li>
+</ul></li>
+</ul>
+<p>)🗣️</p>
+<p><code>#</code></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>학부연구생 모집(2-3명): 관심 있으면 연락 주세요.</p>
+<ul>
+<li>대상: 통계학에 관심있는 3-4학년</li>
+<li>연구 내용: 다음을 포함한 통계학 관련 주제
+<ul>
+<li>다중척도 방법을 활용한 비유클리드 자료분석 (지오메트릭 딥러닝, 토폴로지컬 딥러닝)</li>
+<li>혹은 학생이 원하는 연구주제</li>
+</ul></li>
+<li>문의 및 지원: gbchoi0814@gmail.com</li>
+<li>모집 기한: 6/25 까지</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
