@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="sw1kwon">
+<meta name="dcterms.date" content="2025-06-25">
+
+<title>final review 3 – DeepLearning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0626ff4d7a71b55c8707dcae1d04a9b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3f453be5ec2ee49e579b43b94346acdb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DeepLearning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">final review 3</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>sw1kwon </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 25, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#human_numbers" id="toc-human_numbers" class="nav-link active" data-scroll-target="#human_numbers">3. <code>Human_Numbers</code></a>
+  <ul class="collapse">
+  <li><a href="#기존-풀이-틀림" id="toc-기존-풀이-틀림" class="nav-link" data-scroll-target="#기존-풀이-틀림">기존 풀이 (틀림)</a></li>
+  <li><a href="#보완-풀이-1-hidden_size5" id="toc-보완-풀이-1-hidden_size5" class="nav-link" data-scroll-target="#보완-풀이-1-hidden_size5">보완 풀이 1 (hidden_size=5)</a></li>
+  <li><a href="#보완-풀이-2-역방향-추가" id="toc-보완-풀이-2-역방향-추가" class="nav-link" data-scroll-target="#보완-풀이-2-역방향-추가">보완 풀이 2 (역방향 추가)</a></li>
+  <li><a href="#보완-풀이-3-역방향-추가-seed-변경" id="toc-보완-풀이-3-역방향-추가-seed-변경" class="nav-link" data-scroll-target="#보완-풀이-3-역방향-추가-seed-변경">보완 풀이 3 (역방향 추가 + seed 변경)</a></li>
+  <li><a href="#보완-풀이-4-hidden_size6" id="toc-보완-풀이-4-hidden_size6" class="nav-link" data-scroll-target="#보완-풀이-4-hidden_size6">보완 풀이 4 (hidden_size=6)</a></li>
+  <li><a href="#보완-풀이-5-hidden_size7" id="toc-보완-풀이-5-hidden_size7" class="nav-link" data-scroll-target="#보완-풀이-5-hidden_size7">보완 풀이 5 (hidden_size=7)</a></li>
+  <li><a href="#보완-풀이-6-hidden_size6-역방향-추가" id="toc-보완-풀이-6-hidden_size6-역방향-추가" class="nav-link" data-scroll-target="#보완-풀이-6-hidden_size6-역방향-추가">보완 풀이 6 (hidden_size=6, 역방향 추가)</a></li>
+  <li><a href="#보완-풀이-7-hidden_size7-역방향-추가" id="toc-보완-풀이-7-hidden_size7-역방향-추가" class="nav-link" data-scroll-target="#보완-풀이-7-hidden_size7-역방향-추가">보완 풀이 7 (hidden_size=7, 역방향 추가)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div id="bc72c5c9-6d8d-4b02-a8a7-2819420e857f" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--# 문제1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn.model_selection</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--# 문제4</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gymnasium <span class="im">as</span> gym</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> collections</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="human_numbers" class="level1">
+<h1>3. <code>Human_Numbers</code></h1>
+<p><code>HUMAN_NUMBERS_train.txt</code> 사람이 읽을 수 있는 형식으로 숫자가 나열된 텍스트 파일이다. 이 텍스트 파일을 이용하여 “현재 단어가 주어졌을 때 다음 단어를 예측하는” 신경망을 설계하고 학습시킬 것이다. 아래는 해당 파일을 불러와 단어 단위로 나눈 결과를 확인하는 코드이다.</p>
+<div id="b75a6320-b49f-4766-b37a-cf4ae89b6636" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>guebin<span class="op">/</span>DL2025<span class="op">/</span>main<span class="op">/</span>posts<span class="op">/</span>HUMAN_NUMBERS_train.txt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'HUMAN_NUMBERS_train.txt'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> f.read().split()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2025-06-18 06:32:13--  https://raw.githubusercontent.com/guebin/DL2025/main/posts/HUMAN_NUMBERS_train.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.111.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... failed: Connection timed out.
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 280599 (274K) [text/plain]
+Saving to: ‘HUMAN_NUMBERS_train.txt’
+
+HUMAN_NUMBERS_train 100%[===================&gt;] 274.02K  --.-KB/s    in 0.02s   
+
+2025-06-18 06:34:23 (16.0 MB/s) - ‘HUMAN_NUMBERS_train.txt’ saved [280599/280599]
+</code></pre>
+</div>
+</div>
+<div id="27e130b9-154b-4681-894c-ad5564ceed93" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'HUMAN_NUMBERS_train.txt'</span>) <span class="im">as</span> f:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> f.read().split()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5819aadc-263f-41b5-83c1-eec0e590aab2" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(words[<span class="op">-</span><span class="dv">12</span>:])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['seven', 'thousand', 'nine', 'hundred', 'ninety', 'eight', 'seven', 'thousand', 'nine', 'hundred', 'ninety', 'nine']</code></pre>
+</div>
+</div>
+<p>이 텍스트 파일에는 예를 들어 “… seven, thousand, nine, hundred, ninety, eight, …” 등과 같은 사람이 읽는 숫자 표현이 단어 단위로 나열된 시퀀스 형태로 저장되어 있다.</p>
+<p>이러한 데이터에서 “현재 단어가 주어졌을 때 다음 단어를 예측하는” 자연어 처리 모델을 학습하라. 즉 아래와 같은 맵핑을 학습하라. (꼭 다맞출 필요는 없습니다)</p>
+<ul>
+<li>… seven, thousand, nine, hundred, ninety, eight <span class="math inline">\(\to\)</span> seven</li>
+<li>… seven, thousand, nine, hundred, ninety, eight, seven <span class="math inline">\(\to\)</span> thousand</li>
+<li>… seven, thousand, nine, hundred, ninety, eight, seven, thousand <span class="math inline">\(\to\)</span> nine</li>
+</ul>
+<p><strong>제약사항</strong></p>
+<ul>
+<li>one-hot 전처리 코드를 포함할 것</li>
+<li><code>torch.nn.RNN</code>, <code>torch.nn.RNNCell</code>, <code>torch.nn.LSTM</code> 중 하나를 이용할 것</li>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시할 것</li>
+</ul>
+<p><strong>hint</strong>: 아래의 코드를 이용하여 전처리하면 편리하다.</p>
+<div id="27dfec5e-0c02-4d6c-89b5-988c72233baf" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: words[:<span class="op">-</span><span class="dv">1</span>], <span class="st">'y'</span>: words[<span class="dv">1</span>:]})</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>one</td>
+<td>two</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>two</td>
+<td>three</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>three</td>
+<td>four</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>four</td>
+<td>five</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>five</td>
+<td>six</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42074</td>
+<td>seven</td>
+<td>thousand</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">42075</td>
+<td>thousand</td>
+<td>nine</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42076</td>
+<td>nine</td>
+<td>hundred</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">42077</td>
+<td>hundred</td>
+<td>ninety</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42078</td>
+<td>ninety</td>
+<td>nine</td>
+</tr>
+</tbody>
+</table>
+
+<p>42079 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div id="822a0663-b67e-4405-a686-42be15245b49" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 vocab 기준으로 맵핑</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>vocab <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(words))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dct<span class="op">=</span> {w: i <span class="cf">for</span> i, w <span class="kw">in</span> <span class="bu">enumerate</span>(vocab)}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># train 데이터셋</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(df_train.x.<span class="bu">map</span>(dct))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor(df_train.y.<span class="bu">map</span>(dct))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="336f9406-09d0-4eba-b8b3-66e028bbcab4" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vocab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>['eight',
+ 'eighteen',
+ 'eighty',
+ 'eleven',
+ 'fifteen',
+ 'fifty',
+ 'five',
+ 'forty',
+ 'four',
+ 'fourteen',
+ 'hundred',
+ 'nine',
+ 'nineteen',
+ 'ninety',
+ 'one',
+ 'seven',
+ 'seventeen',
+ 'seventy',
+ 'six',
+ 'sixteen',
+ 'sixty',
+ 'ten',
+ 'thirteen',
+ 'thirty',
+ 'thousand',
+ 'three',
+ 'twelve',
+ 'twenty',
+ 'two']</code></pre>
+</div>
+</div>
+<div id="c0116cb9-f4b2-4ed6-badd-e349251f5dc1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(vocab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>29</code></pre>
+</div>
+</div>
+<div id="a5f6bb19-a6dc-49b3-9c75-7b762fd74f23" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>{'eight': 0,
+ 'eighteen': 1,
+ 'eighty': 2,
+ 'eleven': 3,
+ 'fifteen': 4,
+ 'fifty': 5,
+ 'five': 6,
+ 'forty': 7,
+ 'four': 8,
+ 'fourteen': 9,
+ 'hundred': 10,
+ 'nine': 11,
+ 'nineteen': 12,
+ 'ninety': 13,
+ 'one': 14,
+ 'seven': 15,
+ 'seventeen': 16,
+ 'seventy': 17,
+ 'six': 18,
+ 'sixteen': 19,
+ 'sixty': 20,
+ 'ten': 21,
+ 'thirteen': 22,
+ 'thirty': 23,
+ 'thousand': 24,
+ 'three': 25,
+ 'twelve': 26,
+ 'twenty': 27,
+ 'two': 28}</code></pre>
+</div>
+</div>
+<ul>
+<li>one-hot 전처리 코드</li>
+</ul>
+<div id="934135d6-1f69-45bc-b8aa-d366dc8f4b5e" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.nn.functional.one_hot(x).<span class="bu">float</span>()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.nn.functional.one_hot(y).<span class="bu">float</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2bc84cb0-9af8-4bbc-a8f8-8420de27b3e4" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>X.shape, y.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>(torch.Size([42079, 29]), torch.Size([42079, 29]))</code></pre>
+</div>
+</div>
+<section id="기존-풀이-틀림" class="level2">
+<h2 class="anchored" data-anchor-id="기존-풀이-틀림">기존 풀이 (틀림)</h2>
+<ul>
+<li>torch.nn.LSTM</li>
+</ul>
+<div id="37ec32e1-2046-440c-af8c-880c466201d6" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">2</span>, <span class="co"># h.shape = (L,2)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">False</span> <span class="co"># D=1 이라는 의미 </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">2</span>,<span class="dv">29</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5f915e59-30e4-4e1e-92a9-23bae51f8b78" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="05e0dc54-1724-4cd4-8cf5-f80e4ab4987b" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>tensor([[1.5848e-05, 6.8493e-06, 3.4633e-07,  ..., 1.9942e-06, 5.1928e-07,
+         9.1639e-04],
+        [1.8921e-05, 5.4279e-06, 2.6273e-07,  ..., 1.5076e-06, 3.9237e-07,
+         1.0290e-03],
+        [2.6468e-05, 7.7439e-06, 4.1175e-07,  ..., 2.2037e-06, 6.1075e-07,
+         1.3581e-03],
+        ...,
+        [2.0989e-04, 2.3373e-04, 5.2029e-05,  ..., 1.0565e-04, 7.0884e-05,
+         5.5811e-03],
+        [9.7104e-03, 7.8019e-03, 9.7290e-02,  ..., 8.9866e-03, 9.7032e-02,
+         1.6517e-02],
+        [1.1783e-01, 7.6676e-04, 5.3032e-03,  ..., 4.9830e-04, 5.0763e-03,
+         1.0248e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="5b554ea1-6446-4b28-9378-153b8639421f" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="75ae041a-dd39-4a7c-a2ff-ba27924d518e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b38456b4-af15-4ede-9c25-142e46a6f637" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f8dfedb7-ef70-4fa3-a9fc-7e8bca194b73" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two  thousand
+1      three  thousand
+2       four  thousand
+3       five  thousand
+4        six  thousand
+5      seven  thousand
+6      eight  thousand
+7       nine      four
+8        ten   hundred
+9     eleven      four
+10    twelve   hundred
+11  thirteen  thousand
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven   hundred
+42068  thousand  thousand
+42069      nine      four
+42070   hundred   hundred
+42071    ninety   seventy
+42072     eight      nine
+42073     seven       one
+42074  thousand  thousand
+42075      nine      four
+42076   hundred   hundred
+42077    ninety   seventy
+42078      nine      nine</code></pre>
+</div>
+</div>
+<div id="4f8697b7-a36e-47c4-aaba-7c0e39995b20" class="cell" data-scrolled="true" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.076000
+1       1  0.087000
+2       2  0.077000
+3       3  0.216000
+4       4  0.395000
+5       5  0.462000
+6       6  0.425000
+7       7  0.400000
+8       8  0.396000
+9       9  0.334000
+10     10  0.361000
+11     11  0.469000
+12     12  0.372000
+13     13  0.369000
+14     14  0.333000
+15     15  0.365000
+16     16  0.431000
+17     17  0.403000
+18     18  0.373000
+19     19  0.364000
+20     20  0.417000
+21     21  0.383000
+22     22  0.496000
+23     23  0.397000
+24     24  0.377000
+25     25  0.351000
+26     26  0.365000
+27     27  0.429000
+28     28  0.406000
+29     29  0.372000
+30     30  0.366000
+31     31  0.329000
+32     32  0.362000
+33     33  0.472000
+34     34  0.372000
+35     35  0.366000
+36     36  0.333000
+37     37  0.363000
+38     38  0.428000
+39     39  0.410000
+40     40  0.371000
+41     41  0.367000
+42     42  0.341772</code></pre>
+</div>
+</div>
+<ul>
+<li>적합률이 많이 떨어짐</li>
+<li>이후 GPT4o를 활용하여 다른 모델들도 실행하여 제출했으나 생략
+<ul>
+<li>적합률이 대부분 떨어지고 높더라도 모르는 내용이 많음</li>
+</ul></li>
+</ul>
+</section>
+<section id="보완-풀이-1-hidden_size5" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-1-hidden_size5">보완 풀이 1 (hidden_size=5)</h2>
+<ul>
+<li>input size가 29이기 때문에 hidden_size를 5로 수정
+<ul>
+<li>29 &lt; 2^5라고 생각</li>
+</ul></li>
+<li>torch.nn.LSTM</li>
+</ul>
+<div id="9d3aa044-2a43-4ab6-921a-407a0f6a3419" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">5</span>, <span class="co"># h.shape = (L,5)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">False</span> <span class="co"># D=1 이라는 의미 </span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">5</span>,<span class="dv">29</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="239cdecb-4413-4fa6-8e40-8f077891c80a" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6d5fbdd2-175f-4c5f-8644-f3346237c0c1" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>tensor([[1.4474e-03, 5.3983e-04, 5.0411e-03,  ..., 1.7794e-04, 4.3711e-03,
+         1.0791e-02],
+        [1.8573e-03, 3.2795e-03, 5.9997e-03,  ..., 2.0096e-04, 4.4850e-03,
+         5.3760e-03],
+        [1.9884e-04, 8.0082e-04, 2.0528e-03,  ..., 4.2291e-05, 1.9412e-03,
+         8.5825e-04],
+        ...,
+        [9.6103e-05, 3.5775e-06, 1.4959e-04,  ..., 9.4313e-06, 1.2673e-04,
+         7.5691e-04],
+        [3.3314e-03, 4.9775e-03, 1.0756e-01,  ..., 1.1231e-02, 1.1286e-01,
+         3.3395e-03],
+        [9.1997e-02, 1.1108e-05, 1.1170e-04,  ..., 3.3530e-05, 1.4796e-04,
+         1.0327e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="68af70b3-92a3-4be6-869b-bf4d7d177725" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="36673973-39bf-4142-a8ab-253fc0c34929" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c6e29c8e-ea75-4936-881a-47d157a8ab28" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6aa7fd65-7cb6-438a-9eff-0e4b58ca8e94" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two   hundred
+1      three  thousand
+2       four  thousand
+3       five  thousand
+4        six  thousand
+5      seven  thousand
+6      eight  thousand
+7       nine   hundred
+8        ten   hundred
+9     eleven      four
+10    twelve      four
+11  thirteen  thousand
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven      four
+42068  thousand  thousand
+42069      nine       one
+42070   hundred   hundred
+42071    ninety     fifty
+42072     eight      four
+42073     seven      four
+42074  thousand  thousand
+42075      nine      four
+42076   hundred   hundred
+42077    ninety    twenty
+42078      nine      five</code></pre>
+</div>
+</div>
+<div id="e834ae68-6a88-4e2a-94b3-386511deef72" class="cell" data-scrolled="true" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.318000
+1       1  0.290000
+2       2  0.294000
+3       3  0.358000
+4       4  0.456000
+5       5  0.512000
+6       6  0.484000
+7       7  0.459000
+8       8  0.456000
+9       9  0.379000
+10     10  0.399000
+11     11  0.480000
+12     12  0.417000
+13     13  0.403000
+14     14  0.385000
+15     15  0.425000
+16     16  0.437000
+17     17  0.429000
+18     18  0.396000
+19     19  0.417000
+20     20  0.432000
+21     21  0.452000
+22     22  0.543000
+23     23  0.475000
+24     24  0.450000
+25     25  0.411000
+26     26  0.476000
+27     27  0.456000
+28     28  0.461000
+29     29  0.423000
+30     30  0.460000
+31     31  0.377000
+32     32  0.397000
+33     33  0.463000
+34     34  0.415000
+35     35  0.393000
+36     36  0.367000
+37     37  0.438000
+38     38  0.425000
+39     39  0.434000
+40     40  0.395000
+41     41  0.419000
+42     42  0.367089</code></pre>
+</div>
+</div>
+<ul>
+<li>비슷함</li>
+<li>seed를 0,1로도 해봤으나 마찬가지 결과</li>
+</ul>
+</section>
+<section id="보완-풀이-2-역방향-추가" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-2-역방향-추가">보완 풀이 2 (역방향 추가)</h2>
+<ul>
+<li>문자열이 복잡하므로 역방향 학습을 해보기로 함
+<ul>
+<li>bidrectional = True 설정 후</li>
+<li>그에 맞춰 cook도 수정</li>
+</ul></li>
+<li>torch.nn.LSTM</li>
+</ul>
+<div id="f053e885-5f81-446f-8a72-0e534cba6075" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">5</span>, <span class="co"># h.shape = (L,5)</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">True</span> <span class="co"># D=2 이라는 의미 </span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">10</span>,<span class="dv">29</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="195a6688-c832-4eb2-977e-1b1b571747e6" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="91a93310-3fe1-4d26-a840-fd4676da249f" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>tensor([[3.1617e-06, 2.0103e-09, 3.7032e-05,  ..., 1.8721e-10, 2.3848e-09,
+         1.4301e-03],
+        [7.9249e-04, 1.1029e-08, 5.2581e-11,  ..., 3.5054e-13, 1.0932e-08,
+         3.0752e-06],
+        [3.7814e-08, 4.1972e-11, 5.7738e-08,  ..., 1.1455e-10, 2.0236e-11,
+         6.3567e-03],
+        ...,
+        [2.2288e-06, 1.8809e-12, 7.1074e-06,  ..., 1.1688e-13, 3.0204e-05,
+         1.4058e-12],
+        [2.0933e-06, 1.1628e-05, 2.6661e-01,  ..., 3.3115e-04, 7.5557e-03,
+         1.1487e-07],
+        [6.4547e-01, 7.1928e-04, 8.5033e-05,  ..., 5.0513e-08, 2.3217e-01,
+         1.1310e-08]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="3ae61676-5b3f-4132-9dde-e75a3218cae5" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="725beba8-dcea-435e-a23f-4488cbdcb855" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="731f5a32-c087-45c2-b172-2259479cb073" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="67b8a194-1539-4f36-ae5d-bea1ae29dc7f" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two  thousand
+1      three     three
+2       four  thousand
+3       five      five
+4        six  thousand
+5      seven       one
+6      eight     eight
+7       nine   hundred
+8        ten    eleven
+9     eleven   hundred
+10    twelve     fifty
+11  thirteen   sixteen
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven     seven
+42068  thousand  thousand
+42069      nine      nine
+42070   hundred   hundred
+42071    ninety    ninety
+42072     eight     eight
+42073     seven     seven
+42074  thousand  thousand
+42075      nine      nine
+42076   hundred   hundred
+42077    ninety    ninety
+42078      nine     eight</code></pre>
+</div>
+</div>
+<div id="61d8911e-d898-4893-b02a-3826ffa22950" class="cell" data-scrolled="true" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.851000
+1       1  0.966000
+2       2  0.927000
+3       3  0.929000
+4       4  0.999000
+5       5  0.997000
+6       6  0.997000
+7       7  0.997000
+8       8  0.999000
+9       9  0.975000
+10     10  0.995000
+11     11  0.995000
+12     12  0.993000
+13     13  0.994000
+14     14  0.970000
+15     15  0.992000
+16     16  0.985000
+17     17  0.985000
+18     18  0.985000
+19     19  0.993000
+20     20  0.969000
+21     21  1.000000
+22     22  1.000000
+23     23  0.999000
+24     24  1.000000
+25     25  0.976000
+26     26  0.995000
+27     27  0.993000
+28     28  0.995000
+29     29  0.994000
+30     30  0.994000
+31     31  0.987000
+32     32  0.993000
+33     33  0.993000
+34     34  0.992000
+35     35  0.996000
+36     36  0.987000
+37     37  0.996000
+38     38  0.997000
+39     39  0.996000
+40     40  0.997000
+41     41  0.996000
+42     42  0.987342</code></pre>
+</div>
+</div>
+<ul>
+<li>처음 1,000개의 row 이후에는 정확도가 매우 높음</li>
+<li>seed를 변경해서 한 번 더 시도</li>
+</ul>
+</section>
+<section id="보완-풀이-3-역방향-추가-seed-변경" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-3-역방향-추가-seed-변경">보완 풀이 3 (역방향 추가 + seed 변경)</h2>
+<ul>
+<li>torch.nn.LSTM</li>
+</ul>
+<div id="ccead7db-6898-4f7d-a3d4-c08717a24929" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">5</span>, <span class="co"># h.shape = (L,5)</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">True</span> <span class="co"># D=2 이라는 의미 </span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">10</span>,<span class="dv">29</span>)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="555da39e-a06d-40ca-9ea7-a648f0dcffab" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="e133cb9d-5367-47f6-97d8-e5647794c051" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>tensor([[1.6349e-02, 3.6277e-08, 5.8893e-04,  ..., 4.8575e-08, 3.0039e-16,
+         1.3193e-01],
+        [2.5609e-03, 4.3839e-12, 1.0113e-10,  ..., 1.2924e-05, 2.7538e-11,
+         1.5459e-08],
+        [3.6096e-02, 4.4106e-05, 9.0622e-04,  ..., 4.1877e-03, 2.4234e-10,
+         3.8882e-03],
+        ...,
+        [1.3680e-07, 1.7353e-07, 5.3064e-09,  ..., 2.5751e-09, 1.9787e-06,
+         1.0270e-14],
+        [1.3613e-08, 9.9616e-05, 8.3639e-10,  ..., 4.1368e-06, 2.1724e-04,
+         4.3472e-19],
+        [3.6704e-08, 3.8188e-10, 3.3055e-12,  ..., 1.4791e-10, 5.8062e-04,
+         2.9436e-16]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="482e2d0e-5aac-4ac4-b43a-04c8bf63580b" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="2e438580-cde6-4c61-9485-b8db6ebe1350" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2c70c68a-0374-4539-bada-b104f6d3a709" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6e805bde-a255-42a6-a867-737170a07fa1" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true       pred
+0        two       five
+1      three      three
+2       four       four
+3       five        two
+4        six        six
+5      seven    hundred
+6      eight      eight
+7       nine    hundred
+8        ten    hundred
+9     eleven        six
+10    twelve        six
+11  thirteen  seventeen
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven     seven
+42068  thousand  thousand
+42069      nine      nine
+42070   hundred   hundred
+42071    ninety    ninety
+42072     eight     eight
+42073     seven     seven
+42074  thousand  thousand
+42075      nine      nine
+42076   hundred   hundred
+42077    ninety     forty
+42078      nine      nine</code></pre>
+</div>
+</div>
+<div id="e7d43e44-11e3-4b69-ac42-c17c5d42031d" class="cell" data-scrolled="true" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.877000
+1       1  0.980000
+2       2  0.963000
+3       3  0.956000
+4       4  0.998000
+5       5  0.995000
+6       6  0.996000
+7       7  0.996000
+8       8  0.998000
+9       9  0.974000
+10     10  0.994000
+11     11  0.994000
+12     12  0.994000
+13     13  0.996000
+14     14  0.972000
+15     15  0.999000
+16     16  0.998000
+17     17  0.998000
+18     18  0.998000
+19     19  0.998000
+20     20  0.973000
+21     21  0.998000
+22     22  0.997000
+23     23  0.998000
+24     24  0.999000
+25     25  0.972000
+26     26  0.996000
+27     27  0.993000
+28     28  0.994000
+29     29  0.994000
+30     30  0.997000
+31     31  0.976000
+32     32  0.990000
+33     33  0.991000
+34     34  0.990000
+35     35  0.995000
+36     36  0.970000
+37     37  0.996000
+38     38  0.993000
+39     39  0.995000
+40     40  0.996000
+41     41  0.994000
+42     42  0.987342</code></pre>
+</div>
+</div>
+<ul>
+<li>마찬가지로 처음 1,000개의 row 이후에는 정확도가 매우 높음</li>
+</ul>
+</section>
+<section id="보완-풀이-4-hidden_size6" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-4-hidden_size6">보완 풀이 4 (hidden_size=6)</h2>
+<ul>
+<li><p>input_size는 29이지만 문맥에 따라 사실 그 이상이 될 여지가 충분하므로</p></li>
+<li><p>hidden_size를 높여봄</p></li>
+<li><p>역방향은 하지 않음 (bidrectional = False)</p></li>
+<li><p>torch.nn.LSTM</p></li>
+</ul>
+<div id="955347d6-f945-46eb-8107-27cc01eaced1" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">6</span>, <span class="co"># h.shape = (L,6)</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">False</span> <span class="co"># D=1 이라는 의미 </span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">6</span>,<span class="dv">29</span>)</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c81e98b4-7498-417c-a413-f97082bbb3f9" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="321385a7-c07a-44d9-b1a4-5f4c67da1fa5" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>tensor([[3.7065e-05, 4.5527e-03, 1.5230e-02,  ..., 6.1987e-03, 1.5407e-02,
+         5.7883e-05],
+        [3.3132e-03, 3.2297e-04, 1.6524e-04,  ..., 4.1582e-04, 1.2672e-04,
+         1.2493e-02],
+        [7.6287e-05, 4.6955e-04, 1.6344e-03,  ..., 6.4444e-04, 1.7983e-03,
+         2.9418e-04],
+        ...,
+        [5.5518e-05, 7.8149e-06, 1.5539e-04,  ..., 1.1828e-05, 7.7259e-05,
+         4.0750e-04],
+        [5.9013e-04, 3.7120e-03, 1.2060e-01,  ..., 3.3190e-03, 1.2618e-01,
+         2.4807e-04],
+        [9.5842e-02, 6.6577e-05, 2.1009e-05,  ..., 6.2041e-05, 2.2768e-05,
+         1.1822e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="6a8f59ae-55e8-43eb-bb8e-a0f8f0c8c98f" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="64">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="e3566578-acfe-43b1-b724-04c8d4bdeea0" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="32eec9ec-d9a6-4891-91d4-a1db5fd39407" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3463cd4e-bdac-45fd-95b9-a7dcf9f2ba4d" class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two   hundred
+1      three   hundred
+2       four  thousand
+3       five  thousand
+4        six  thousand
+5      seven  thousand
+6      eight  thousand
+7       nine   hundred
+8        ten   hundred
+9     eleven   hundred
+10    twelve   hundred
+11  thirteen      four
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven       two
+42068  thousand  thousand
+42069      nine       two
+42070   hundred   hundred
+42071    ninety    twenty
+42072     eight       two
+42073     seven     three
+42074  thousand  thousand
+42075      nine       two
+42076   hundred   hundred
+42077    ninety    twenty
+42078      nine       two</code></pre>
+</div>
+</div>
+<div id="76664cff-7f77-4d9b-b5bb-c6d51c90b8ae" class="cell" data-scrolled="true" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.132000
+1       1  0.063000
+2       2  0.132000
+3       3  0.324000
+4       4  0.453000
+5       5  0.460000
+6       6  0.405000
+7       7  0.410000
+8       8  0.408000
+9       9  0.432000
+10     10  0.548000
+11     11  0.482000
+12     12  0.469000
+13     13  0.482000
+14     14  0.415000
+15     15  0.547000
+16     16  0.550000
+17     17  0.525000
+18     18  0.517000
+19     19  0.478000
+20     20  0.378000
+21     21  0.475000
+22     22  0.406000
+23     23  0.391000
+24     24  0.389000
+25     25  0.357000
+26     26  0.443000
+27     27  0.434000
+28     28  0.387000
+29     29  0.390000
+30     30  0.399000
+31     31  0.359000
+32     32  0.475000
+33     33  0.393000
+34     34  0.389000
+35     35  0.381000
+36     36  0.357000
+37     37  0.437000
+38     38  0.433000
+39     39  0.387000
+40     40  0.387000
+41     41  0.388000
+42     42  0.341772</code></pre>
+</div>
+</div>
+<ul>
+<li>실패</li>
+</ul>
+</section>
+<section id="보완-풀이-5-hidden_size7" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-5-hidden_size7">보완 풀이 5 (hidden_size=7)</h2>
+<ul>
+<li><p>hidden_size만 7로 높여서 실행</p></li>
+<li><p>torch.nn.LSTM</p></li>
+</ul>
+<div id="3c3bfde0-2ba4-40ce-b17c-f132e5b14c01" class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">7</span>, <span class="co"># h.shape = (L,7)</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">False</span> <span class="co"># D=1 이라는 의미 </span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">7</span>,<span class="dv">29</span>)</span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb78-18"><a href="#cb78-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb78-19"><a href="#cb78-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb78-20"><a href="#cb78-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb78-21"><a href="#cb78-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb78-22"><a href="#cb78-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb78-23"><a href="#cb78-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb78-24"><a href="#cb78-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb78-25"><a href="#cb78-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb78-26"><a href="#cb78-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7a37ba27-2f61-4d6d-9c14-65d4743a1fc6" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="a87aef5e-d45f-4d3b-a322-6b693fe839c1" class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>tensor([[1.8283e-07, 1.1450e-07, 1.4956e-03,  ..., 6.6693e-08, 4.0494e-05,
+         1.5115e-05],
+        [1.0970e-02, 7.1388e-05, 1.1522e-01,  ..., 5.6457e-05, 1.2502e-02,
+         1.4366e-02],
+        [1.8247e-09, 3.0444e-09, 7.2681e-04,  ..., 2.7827e-09, 1.8954e-06,
+         1.8903e-07],
+        ...,
+        [6.2995e-11, 1.3118e-11, 4.2953e-05,  ..., 1.4996e-11, 4.1832e-08,
+         7.4277e-09],
+        [1.1162e-04, 7.2878e-04, 1.3145e-01,  ..., 4.0824e-04, 1.1171e-01,
+         3.5104e-04],
+        [8.5766e-02, 1.2777e-06, 4.3670e-08,  ..., 2.0657e-06, 1.4005e-05,
+         1.1935e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="71c197f5-7e1f-4c76-9b4c-71c3769dc38c" class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="aa0a4b59-1bbb-4fe6-a494-d35df39e0c47" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="668eea1b-3f05-4268-831a-2f4c40894aac" class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="220b262b-7205-4889-8a03-dd3f77262836" class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two  thousand
+1      three     fifty
+2       four   hundred
+3       five    eighty
+4        six  thousand
+5      seven  thousand
+6      eight     sixty
+7       nine  thousand
+8        ten  thousand
+9     eleven      four
+10    twelve      four
+11  thirteen      four
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven       one
+42068  thousand  thousand
+42069      nine      nine
+42070   hundred   hundred
+42071    ninety     fifty
+42072     eight       two
+42073     seven       one
+42074  thousand  thousand
+42075      nine      nine
+42076   hundred   hundred
+42077    ninety    eighty
+42078      nine       two</code></pre>
+</div>
+</div>
+<div id="9142629e-affc-487c-b06f-12ecf742a3b7" class="cell" data-scrolled="true" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.300000
+1       1  0.412000
+2       2  0.346000
+3       3  0.410000
+4       4  0.436000
+5       5  0.480000
+6       6  0.473000
+7       7  0.480000
+8       8  0.585000
+9       9  0.379000
+10     10  0.405000
+11     11  0.398000
+12     12  0.401000
+13     13  0.473000
+14     14  0.444000
+15     15  0.404000
+16     16  0.408000
+17     17  0.403000
+18     18  0.423000
+19     19  0.524000
+20     20  0.381000
+21     21  0.424000
+22     22  0.409000
+23     23  0.411000
+24     24  0.498000
+25     25  0.437000
+26     26  0.409000
+27     27  0.419000
+28     28  0.397000
+29     29  0.429000
+30     30  0.527000
+31     31  0.373000
+32     32  0.424000
+33     33  0.411000
+34     34  0.411000
+35     35  0.457000
+36     36  0.480000
+37     37  0.468000
+38     38  0.476000
+39     39  0.473000
+40     40  0.489000
+41     41  0.541000
+42     42  0.544304</code></pre>
+</div>
+</div>
+<ul>
+<li>또 실패</li>
+</ul>
+</section>
+<section id="보완-풀이-6-hidden_size6-역방향-추가" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-6-hidden_size6-역방향-추가">보완 풀이 6 (hidden_size=6, 역방향 추가)</h2>
+<ul>
+<li><p>hidden_size = 6</p></li>
+<li><p>역방향 추가 (bidrectional = True)</p></li>
+<li><p>torch.nn.LSTM</p></li>
+</ul>
+<div id="4f55bc8a-8974-4a64-a3cd-4d7a042a5aa9" class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">6</span>, <span class="co"># h.shape = (L,6)</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">True</span> <span class="co"># D=2 이라는 의미 </span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">12</span>,<span class="dv">29</span>)</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb90-20"><a href="#cb90-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb90-21"><a href="#cb90-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb90-22"><a href="#cb90-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb90-23"><a href="#cb90-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb90-24"><a href="#cb90-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb90-25"><a href="#cb90-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb90-26"><a href="#cb90-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c420c056-6bb7-4842-8645-965d0cf4352b" class="cell" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="7f67c3c6-ce65-4e85-b814-045650dcc785" class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="95">
+<pre><code>tensor([[1.2533e-07, 2.8298e-09, 9.9293e-11,  ..., 1.8811e-10, 5.2931e-07,
+         7.5078e-04],
+        [9.9083e-07, 4.0537e-10, 1.2277e-06,  ..., 7.8233e-10, 1.4352e-05,
+         8.4817e-03],
+        [2.9894e-11, 4.9861e-09, 3.4209e-02,  ..., 3.1657e-09, 1.7631e-03,
+         9.1169e-09],
+        ...,
+        [9.6490e-09, 4.9059e-09, 7.7631e-05,  ..., 1.5136e-07, 1.1839e-05,
+         1.3791e-10],
+        [1.4970e-12, 2.9719e-03, 5.2750e-08,  ..., 3.6019e-05, 2.0028e-05,
+         3.0589e-13],
+        [1.1729e-02, 5.5592e-03, 2.1014e-09,  ..., 1.0461e-02, 7.6911e-09,
+         2.5942e-05]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="12b6acc7-2b14-4f7a-bdd3-5105e806885c" class="cell" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="96">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="ce540f59-7701-4119-8231-6d79d5d5caeb" class="cell" data-execution_count="97">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cdcbccde-6c62-47c7-96b6-dd3712786ca3" class="cell" data-execution_count="98">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="77d31daa-fffc-4e02-903a-9dc344aa43c4" class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two  thousand
+1      three  thousand
+2       four   hundred
+3       five      five
+4        six  thousand
+5      seven     seven
+6      eight  thousand
+7       nine      nine
+8        ten       ten
+9     eleven   sixteen
+10    twelve     eight
+11  thirteen  thirteen
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven     seven
+42068  thousand  thousand
+42069      nine      nine
+42070   hundred   hundred
+42071    ninety    ninety
+42072     eight     eight
+42073     seven     seven
+42074  thousand  thousand
+42075      nine      nine
+42076   hundred   hundred
+42077    ninety    ninety
+42078      nine       six</code></pre>
+</div>
+</div>
+<div id="309741cf-4c0c-497c-9053-63a582d2b561" class="cell" data-scrolled="true" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.932000
+1       1  0.998000
+2       2  0.997000
+3       3  0.960000
+4       4  1.000000
+5       5  1.000000
+6       6  1.000000
+7       7  1.000000
+8       8  1.000000
+9       9  0.991000
+10     10  1.000000
+11     11  1.000000
+12     12  1.000000
+13     13  1.000000
+14     14  0.993000
+15     15  1.000000
+16     16  1.000000
+17     17  1.000000
+18     18  0.999000
+19     19  1.000000
+20     20  0.995000
+21     21  1.000000
+22     22  0.999000
+23     23  0.998000
+24     24  1.000000
+25     25  0.991000
+26     26  1.000000
+27     27  1.000000
+28     28  1.000000
+29     29  1.000000
+30     30  1.000000
+31     31  0.990000
+32     32  1.000000
+33     33  1.000000
+34     34  1.000000
+35     35  1.000000
+36     36  0.993000
+37     37  1.000000
+38     38  1.000000
+39     39  1.000000
+40     40  1.000000
+41     41  1.000000
+42     42  0.987342</code></pre>
+</div>
+</div>
+<ul>
+<li>hidden_size = 5에서 보이지 않았던 정확도 1도 보임</li>
+</ul>
+</section>
+<section id="보완-풀이-7-hidden_size7-역방향-추가" class="level2">
+<h2 class="anchored" data-anchor-id="보완-풀이-7-hidden_size7-역방향-추가">보완 풀이 7 (hidden_size=7, 역방향 추가)</h2>
+<ul>
+<li><p>이미 잘 되지만 hidden_size도 7까지 올림</p></li>
+<li><p>torch.nn.LSTM</p></li>
+</ul>
+<div id="61f0b0b9-b028-4b54-bf59-d288b3034586" class="cell" data-execution_count="101">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">5</span>)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> torch.nn.LSTM(</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>    input_size  <span class="op">=</span> <span class="dv">29</span>, <span class="co"># X.shape = (L,29)</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>    hidden_size <span class="op">=</span> <span class="dv">7</span>, <span class="co"># h.shape = (L,7)</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>    num_layers <span class="op">=</span> <span class="dv">1</span>,  <span class="co"># num_layers = 1 이라는 의미 </span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>    bidirectional <span class="op">=</span> <span class="va">True</span> <span class="co"># D=2 이라는 의미 </span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>)    </span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>cook <span class="op">=</span> torch.nn.Linear(<span class="dv">14</span>,<span class="dv">29</span>)</span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>optimizr <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(lstm.parameters())<span class="op">+</span></span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(cook.parameters()),</span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a><span class="co">#---#</span></span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoc <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1</span></span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> lstm(X) <span class="co"># rnn의 결과는 길이가 2인 튜플이고, 첫원소가 h </span></span>
+<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a>    netout <span class="op">=</span> cook(h)</span>
+<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2 </span></span>
+<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(netout, y)</span>
+<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3</span></span>
+<span id="cb102-23"><a href="#cb102-23" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb102-24"><a href="#cb102-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4 </span></span>
+<span id="cb102-25"><a href="#cb102-25" aria-hidden="true" tabindex="-1"></a>    optimizr.step()</span>
+<span id="cb102-26"><a href="#cb102-26" aria-hidden="true" tabindex="-1"></a>    optimizr.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="54108fa0-2a46-4058-b022-65fd52b30ac1" class="cell" data-execution_count="102">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="op">=</span> torch.nn.functional.softmax(netout,dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>처음 12개의 단어와 마지막 12개의 단어에 대한 적합값(fitted value)을 제시</li>
+</ul>
+<div id="a8877bc7-7b04-48e4-bd2a-fe00845f4b53" class="cell" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="103">
+<pre><code>tensor([[4.7526e-08, 8.7862e-07, 5.0891e-08,  ..., 2.2394e-06, 8.4799e-08,
+         2.8584e-02],
+        [4.0320e-09, 1.3876e-03, 3.3420e-05,  ..., 2.3096e-05, 3.2566e-07,
+         3.9486e-04],
+        [5.9579e-13, 3.8629e-07, 4.2675e-07,  ..., 4.7583e-10, 2.9717e-11,
+         2.7420e-14],
+        ...,
+        [1.1023e-06, 1.7860e-08, 1.1023e-10,  ..., 3.5089e-09, 5.4323e-05,
+         5.0075e-04],
+        [2.3697e-04, 1.6339e-06, 3.5264e-03,  ..., 1.3583e-06, 2.6748e-03,
+         5.1017e-06],
+        [5.4513e-01, 1.5457e-10, 9.3180e-07,  ..., 1.4596e-06, 1.1473e-06,
+         4.5226e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="3c859dd1-f0e5-40d1-bf68-b91ddc526e19" class="cell" data-execution_count="104">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>yhat.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="104">
+<pre><code>torch.Size([42079, 29])</code></pre>
+</div>
+</div>
+<div id="2d4a34ce-b01e-4547-9b49-d59eda741c28" class="cell" data-execution_count="105">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 예측 인덱스 &amp; 단어</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>pred_idx   <span class="op">=</span> yhat.argmax(dim<span class="op">=</span><span class="dv">1</span>).cpu().numpy()           <span class="co"># (L,)</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>pred_words <span class="op">=</span> [vocab[i] <span class="cf">for</span> i <span class="kw">in</span> pred_idx]               <span class="co"># 예측 단어 리스트</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="734d0dd2-40f2-4de2-94ad-68ac8ab4b00a" class="cell" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 결과 DataFrame 생성</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>df_out <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'true'</span>:  df_train[<span class="st">'y'</span>].values,  <span class="co"># 실제 단어</span></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pred'</span>:  pred_words            <span class="co"># 예측 단어</span></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cddc8d88-7736-4ead-a697-876f90ae972c" class="cell" data-execution_count="107">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 처음 12개와 마지막 12개 추출·출력</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== First 12 Predictions ==="</span>)</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.head(<span class="dv">12</span>))</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Last 12 Predictions ==="</span>)</span>
+<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_out.tail(<span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== First 12 Predictions ===
+        true      pred
+0        two   hundred
+1      three   hundred
+2       four      four
+3       five      five
+4        six  thousand
+5      seven  thousand
+6      eight  thousand
+7       nine      four
+8        ten  thousand
+9     eleven  fourteen
+10    twelve     eight
+11  thirteen  thirteen
+
+=== Last 12 Predictions ===
+           true      pred
+42067     seven     seven
+42068  thousand  thousand
+42069      nine      nine
+42070   hundred   hundred
+42071    ninety    ninety
+42072     eight     eight
+42073     seven     seven
+42074  thousand  thousand
+42075      nine      nine
+42076   hundred   hundred
+42077    ninety    ninety
+42078      nine     eight</code></pre>
+</div>
+</div>
+<div id="d09b20bc-22b2-4b74-bb73-c1de518bf65a" class="cell" data-scrolled="true" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 청크 번호 생성</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'chunk'</span>] <span class="op">=</span> np.arange(<span class="bu">len</span>(df_out)) <span class="op">//</span> chunk_size</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 맞혔는지 여부 컬럼 추가</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>df_out[<span class="st">'correct'</span>] <span class="op">=</span> (df_out[<span class="st">'true'</span>] <span class="op">==</span> df_out[<span class="st">'pred'</span>])</span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 청크별 정확도(accuracy) 계산</span></span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a>accuracy_per_chunk <span class="op">=</span> (</span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>    df_out</span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'chunk'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'correct'</span>]</span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'correct'</span>: <span class="st">'accuracy'</span>})</span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy_per_chunk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    chunk  accuracy
+0       0  0.925000
+1       1  1.000000
+2       2  0.991000
+3       3  0.993000
+4       4  1.000000
+5       5  1.000000
+6       6  1.000000
+7       7  1.000000
+8       8  1.000000
+9       9  0.992000
+10     10  1.000000
+11     11  1.000000
+12     12  1.000000
+13     13  1.000000
+14     14  0.990000
+15     15  1.000000
+16     16  1.000000
+17     17  1.000000
+18     18  1.000000
+19     19  1.000000
+20     20  0.999000
+21     21  1.000000
+22     22  1.000000
+23     23  1.000000
+24     24  1.000000
+25     25  0.999000
+26     26  1.000000
+27     27  1.000000
+28     28  1.000000
+29     29  1.000000
+30     30  1.000000
+31     31  0.997000
+32     32  1.000000
+33     33  1.000000
+34     34  1.000000
+35     35  1.000000
+36     36  0.996000
+37     37  1.000000
+38     38  1.000000
+39     39  1.000000
+40     40  1.000000
+41     41  1.000000
+42     42  0.987342</code></pre>
+</div>
+</div>
+<ul>
+<li>마찬가지로 잘 됨</li>
+<li>정확도 1도 많음</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
